@@ -1,0 +1,88 @@
+---
+title: "Two-way inbox for managing SMS conversations"
+description: "Use the Conversations inbox to read, search, filter, and reply to every SMS thread with your contacts — all in one place, with real-time updates."
+sidebarTitle: "Inbox"
+---
+
+The Conversations inbox is your unified view of every two-way SMS thread in your organization. When contacts reply to a campaign, respond to a poll, or text your number directly, those messages land here. You can search and filter threads, reply with SMS or MMS, open a contact's full profile, and manage opt-outs — all without leaving the inbox.
+
+## What you'll find in the inbox
+
+Each row in the inbox represents a single conversation thread with one contact. Threads show the contact's name (or phone number if no name is on file), a preview of the most recent message, and the timestamp of the last activity.
+
+<CardGroup cols={2}>
+  <Card title="Search conversations" icon="magnifying-glass">
+    Type in the search bar to find threads by contact name or phone number. Useful when you need to locate a specific reply quickly during an active send.
+  </Card>
+  <Card title="Filter by status" icon="filter">
+    Use the **Unread** filter to surface threads with new incoming messages. Use the **Archived** filter to view conversations you've previously put away.
+  </Card>
+  <Card title="Reply with SMS or MMS" icon="message">
+    Type a reply and send it as a plain SMS, or attach a supported image file to send as MMS. Replies are sent immediately — they are not subject to quiet hours.
+  </Card>
+  <Card title="Open the contact record" icon="address-card">
+    Select the contact name or the profile link inside any conversation to jump directly to that contact's full record, including their activity timeline and campaign history.
+  </Card>
+</CardGroup>
+
+## Replying to a contact
+
+Replies you send from the inbox go out immediately, regardless of your organization's quiet hours setting. This is intentional — if a contact has reached out, you should be able to respond right away.
+
+<Steps>
+  <Step title="Open the conversation">
+    Click any thread in the inbox list to open the full message history with that contact.
+  </Step>
+  <Step title="Compose your reply">
+    Type your message in the reply box at the bottom of the thread. Keep in mind that SMS credits are consumed on send — longer messages may use more than one credit segment.
+  </Step>
+  <Step title="Attach an image (optional)">
+    To send an MMS, click the attachment icon and select a supported image file. MMS messages use 2 credits per message.
+  </Step>
+  <Step title="Send">
+    Click **Send**. The message appears in the thread immediately and is delivered to the contact's phone.
+  </Step>
+</Steps>
+
+<Warning>
+Replies will be blocked if your account has insufficient credits or if billing access is inactive. The inbox surfaces a clear error message if this happens. Contact your billing admin to resolve it before replying.
+</Warning>
+
+## Opting a contact out from a conversation
+
+If a contact asks to stop receiving messages, you can process their opt-out directly from the conversation — you don't need to navigate to the contact record separately.
+
+Open the conversation, then use the opt-out option in the conversation toolbar. This marks the contact as opted out and suppresses them from future campaign and poll sends.
+
+<Note>
+Amplifi also handles opt-outs automatically when a contact replies with STOP or UNSUBSCRIBE. Manual opt-outs from the inbox are for cases where the contact phrases the request differently or asks verbally.
+</Note>
+
+## Archiving and starring threads
+
+To keep your inbox focused, you can archive conversations you've resolved. Archived threads are hidden from the default view but remain searchable and recoverable using the **Archived** filter.
+
+Star a thread to flag it for follow-up. Starred conversations are easy to retrieve and are a lightweight way to mark a contact you want to revisit.
+
+## Using the inbox during active campaign sends
+
+The inbox is most valuable during and immediately after a campaign send, when inbound replies start coming in from your audience.
+
+<Tip>
+During an active send, keep the inbox open in a separate tab with the **Unread** filter active. As replies arrive, you can respond to individual contacts without disrupting your send workflow. This follow-up approach turns a one-way blast into a real conversation — and typically drives better engagement.
+</Tip>
+
+<AccordionGroup>
+  <Accordion title="Can I reply while a campaign is still sending?">
+    Yes. Replying from the inbox is independent of the campaign send pipeline. You can respond to individual threads at any time, even while outbound messages are still being delivered to the rest of your audience.
+  </Accordion>
+  <Accordion title="Why does my reply bypass quiet hours?">
+    Quiet hours apply to bulk outbound sends, not to individual replies. When a contact reaches out to you, responding in kind is a direct conversation — not a mass send — so the quiet hours restriction is intentionally not applied.
+  </Accordion>
+  <Accordion title="What happens if a contact is opted out?">
+    Opted-out contacts are suppressed from future campaign and poll sends. You can still view their conversation history in the inbox, but outbound replies to opted-out contacts will be blocked.
+  </Accordion>
+  <Accordion title="Can I see the contact's campaign history from the inbox?">
+    Yes. Click the contact's name or the profile link in the conversation to open their full contact record, which includes their campaign participation, poll activity, tags, and full message timeline.
+  </Accordion>
+</AccordionGroup>

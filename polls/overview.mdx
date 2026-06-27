@@ -1,0 +1,100 @@
+---
+title: "Text-message polls: surveys with branching logic"
+description: "Send multi-question surveys over SMS, route participants through branching logic, track completion progress, and share results with stakeholders."
+sidebarTitle: "Overview"
+---
+
+Polls let you run structured surveys entirely over text message. You send a series of questions to a group of contacts, participants reply from their phone, and Amplifi tracks every response, routes people through branching paths based on their answers, and surfaces a live breakdown of results you can share with anyone—no login required. Whether you're collecting constituent feedback, running a quick intake survey, or measuring sentiment across a segment, polls give you a repeatable, measurable way to hear back from the people you're texting.
+
+## Poll statuses
+
+A poll moves through a defined lifecycle from creation to completion.
+
+<CardGroup cols={2}>
+  <Card title="Draft" icon="pen">
+    The poll has been created but not yet started or scheduled. You can freely edit questions, targeting, and settings.
+  </Card>
+  <Card title="Scheduled" icon="clock">
+    The poll is set to launch at a future date and time. You can unschedule it back to draft if plans change.
+  </Card>
+  <Card title="Active" icon="circle-play">
+    The poll is live. Questions are being sent, responses are coming in, and participants are being tracked in real time.
+  </Card>
+  <Card title="Paused" icon="circle-pause">
+    The poll has been temporarily stopped. No new questions are sent while paused, but existing participant data is preserved.
+  </Card>
+  <Card title="Completed" icon="circle-check">
+    The poll has finished. This happens when you manually close it or when the completion target you set has been reached.
+  </Card>
+</CardGroup>
+
+## Key features
+
+<AccordionGroup>
+  <Accordion title="Up to 20 questions">
+    Each poll supports up to 20 questions. You can mix question types within a single poll, though multiple-choice questions are the most reliable format for consistent, parseable responses.
+  </Accordion>
+  <Accordion title="Branching rules">
+    Route participants to different questions based on how they answer. For example, participants who reply "Yes" to question 2 can be sent to question 4, while everyone else continues to question 3. Branching lets you run a single poll that adapts to each participant's path without managing multiple separate polls.
+  </Accordion>
+  <Accordion title="Completion targets">
+    Set an optional target for how many completed responses you want to collect. When the target is reached, Amplifi stops sending new questions to incoming participants and marks the poll as completed. Participants who are already mid-poll can still finish.
+  </Accordion>
+  <Accordion title="8-hour participant timeout">
+    Each participant has 8 hours to finish the poll from the moment they receive their first question. If they haven't completed the poll by the 6-hour mark, they receive a reminder. If they still haven't responded by hour 8, they are marked as timed out and removed from the active participant queue.
+  </Accordion>
+  <Accordion title="Reminders">
+    A single automated reminder goes out at the 6-hour mark for any participant who hasn't yet responded. You don't need to configure this separately—it happens automatically for every in-progress participant.
+  </Accordion>
+</AccordionGroup>
+
+## Targeting options
+
+When you start or schedule a poll, you choose who receives it. Amplifi gives you three ways to define your audience.
+
+| Option | When to use it |
+|---|---|
+| **All contacts** | Send to every contact in your organization |
+| **Saved segment** | Target a pre-built audience you've already defined |
+| **Ad hoc filter** | Build a one-time filter on the fly without saving it |
+
+<Note>
+  Quiet hours apply to poll messages just like campaigns. Questions and reminders are not sent during quiet hours (9 PM–9 AM local time), and participant timeout clocks account for quiet-hours delays.
+</Note>
+
+You can also add more contacts to an already-active poll after it has launched. This is useful when new contacts are added mid-campaign or when you want to expand your audience without starting a new poll.
+
+## Question types
+
+Polls support four question types.
+
+- **Multiple choice** — Participants reply with a number or letter corresponding to an answer option. This is the most reliable type and the recommended default for most polls.
+- **Yes/No** — A simplified multiple-choice format for binary questions.
+- **Number** — Participants reply with a numeric value (for example, age or a rating).
+- **Text** — Participants reply with a free-form text response.
+
+<Tip>
+  Use multiple-choice questions whenever possible. Open-ended text responses are harder to analyze in aggregate and are more likely to generate unexpected replies that require manual review.
+</Tip>
+
+## Participant states
+
+Amplifi tracks every participant individually. Each person in your poll will have one of the following states.
+
+<CardGroup cols={2}>
+  <Card title="In progress" icon="spinner">
+    The participant has received at least one question and has not yet completed the poll or been timed out.
+  </Card>
+  <Card title="Completed" icon="circle-check">
+    The participant answered all questions (or reached a termination point in the branching flow) and the poll recorded their full response.
+  </Card>
+  <Card title="Opted out" icon="ban">
+    The participant replied STOP or otherwise opted out during the poll. They are excluded from further messages.
+  </Card>
+  <Card title="No valid response" icon="question">
+    The participant replied to a question but their response could not be matched to a valid answer option after two attempts. Amplifi skips the question and continues the flow.
+  </Card>
+  <Card title="Terminated (timeout)" icon="clock">
+    The participant did not respond within the 8-hour window. The timeout worker marks them as terminated and stops sending them questions.
+  </Card>
+</CardGroup>

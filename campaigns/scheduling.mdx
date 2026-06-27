@@ -1,0 +1,78 @@
+---
+title: "Schedule campaigns with timezone and quiet hours"
+description: "Send your campaign immediately or schedule it for the right moment. Amplifi uses your organization's timezone and enforces quiet hours to keep sends compliant."
+sidebarTitle: "Scheduling"
+---
+
+When you're done composing a campaign, you decide when it goes out. You can send immediately or schedule it for a specific date and time in the future. Amplifi handles the timing details — it uses your organization's timezone and automatically respects quiet hours so messages reach contacts during appropriate windows.
+
+## Send now vs. schedule
+
+At the end of the compose workflow, you choose between two options:
+
+- **Send now** — Amplifi starts processing the campaign immediately. The status moves to **Pending**, then **Sending** as messages go out.
+- **Schedule** — You pick a date and time. If the scheduled time is more than 30 seconds in the future, the campaign enters **Scheduled** status and waits until the send window arrives.
+
+<Info>
+  Scheduling even a few minutes into the future gives you time to review or cancel before messages go out. If you're unsure, schedule rather than send immediately.
+</Info>
+
+## Timezone support
+
+All scheduling in Amplifi uses your **organization's timezone**, set in **Settings → General**. When you select a date and time in the composer, that time is interpreted in your org timezone.
+
+This matters when your audience spans multiple time zones — Amplifi uses the org timezone as the reference point, not the local time on your computer.
+
+<Tip>
+  Before your first campaign, confirm your org timezone is correct in Settings. An incorrect timezone will shift all scheduled sends and affect quiet-hours enforcement.
+</Tip>
+
+## Quiet hours
+
+Amplifi enforces a quiet-hours window to avoid messaging contacts too early or too late. Messages are only sent between **8 AM and 9 PM** in the recipient's local time.
+
+If a send falls outside this window:
+
+- Messages due before 8 AM are deferred until 8 AM opens.
+- Messages due after 9 PM are deferred to the following morning.
+
+Quiet hours apply to initial sends, retries, and resends — not just scheduled campaigns.
+
+<Warning>
+  Campaigns with 10,000 or more recipients cannot be sent immediately after 7 PM local time. If you try to send a large campaign late in the evening, Amplifi will block the immediate send. Schedule it for the next morning instead.
+</Warning>
+
+## Campaign statuses during the scheduling lifecycle
+
+| Status | When you see it |
+|---|---|
+| **Draft** | You're composing or haven't submitted yet |
+| **Scheduled** | Submitted with a future send time (more than 30 seconds out) |
+| **Pending** | Send time has arrived; the campaign is preparing to process |
+| **Sending** | Messages are actively going out to recipients |
+| **Completed** | All messages have been processed |
+| **Paused** | Sending was paused mid-send |
+| **Failed** | An error occurred; check the campaign detail for information |
+
+## Editing a scheduled campaign
+
+You can make changes to a scheduled campaign before it enters the **Pending** or **Sending** phase.
+
+<Steps>
+  <Step title="Find your scheduled campaign">
+    Go to **Campaigns** in the left sidebar. Scheduled campaigns appear with a **Scheduled** badge and show the planned send time.
+  </Step>
+  <Step title="Open the campaign">
+    Click the campaign to open its detail view.
+  </Step>
+  <Step title="Edit or reschedule">
+    Use the edit option to reopen the composer. You can update the message, change the audience, or pick a different send time.
+  </Step>
+  <Step title="Save your changes">
+    Save the campaign. It returns to **Scheduled** status with the updated settings.
+  </Step>
+</Steps>
+
+<Note>
+  Once a campaign moves to **Pending** or **Sending**, you can no longer edit it. If you need to stop a send that has already started, use the pause option from the campaign detail view.
+</Note>

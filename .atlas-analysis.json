@@ -1,0 +1,122 @@
+{
+  "projectType": "saas",
+  "projectName": "Amplifi",
+  "projectDescription": "Amplifi is an SMS-first outreach platform that helps organizations manage contacts, send bulk campaigns, run text-message polls, and handle two-way conversations at scale.",
+  "theme": "almond",
+  "primaryColor": "#9c85e0",
+  "lightColor": "#fbfaff",
+  "darkColor": "#1a1a2e",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "organizations"
+            ]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "contacts/overview",
+              "contacts/import",
+              "contacts/segments"
+            ]
+          },
+          {
+            "group": "Campaigns",
+            "pages": [
+              "campaigns/overview",
+              "campaigns/composing",
+              "campaigns/scheduling",
+              "campaigns/ab-testing",
+              "campaigns/analytics"
+            ]
+          },
+          {
+            "group": "Polls",
+            "pages": [
+              "polls/overview",
+              "polls/building",
+              "polls/results"
+            ]
+          },
+          {
+            "group": "Conversations & Automations",
+            "pages": [
+              "conversations/inbox",
+              "automations/overview"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "account/billing",
+              "account/phone-numbers",
+              "account/team"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "API",
+            "pages": [
+              "api/authentication",
+              "api/contacts",
+              "api/campaigns",
+              "api/polls",
+              "api/conversations",
+              "api/analytics"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "reference/merge-fields",
+              "reference/webhooks",
+              "reference/compliance"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Bulk SMS/MMS campaigns with scheduling, A/B testing, and link tracking",
+    "Text-message polls with branching logic and shareable results",
+    "Two-way inbox for managing replies and conversations",
+    "Contact management with CSV/Excel import, tags, segments, and custom fields",
+    "Visual workflow automation builder with triggers and actions",
+    "Analytics dashboard with delivery rates, reply rates, and click attribution",
+    "Multi-tenant organizations with role-based access control",
+    "Credit-based billing with subscription plans",
+    "TCPA-compliant quiet hours and opt-out management",
+    "Real-time delivery status via Twilio integration"
+  ],
+  "publicApiSurface": [
+    "POST /api/campaigns — create a campaign",
+    "PATCH /api/campaigns/:id — update a campaign",
+    "GET /api/campaigns — list campaigns",
+    "POST /api/campaigns/:id/send — send a campaign",
+    "POST /api/polls/:id/start — start a poll",
+    "GET /api/contacts — list contacts",
+    "POST /api/contacts — create a contact",
+    "GET /api/contacts/:id — get contact detail",
+    "POST /api/contacts/import — import contacts",
+    "GET /api/analytics/dashboard — dashboard metrics",
+    "GET /api/billing/status — billing and subscription status",
+    "GET /api/credits/balance — credit balance",
+    "POST /api/billing/create-order — create a billing order",
+    "GET /api/phone-numbers — list phone numbers",
+    "POST /api/messages — send a one-off message",
+    "GET /api/conversations — list conversations",
+    "POST /api/onboarding/join-org — join organization via onboarding"
+  ]
+}

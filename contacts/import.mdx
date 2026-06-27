@@ -1,0 +1,124 @@
+---
+title: "Import contacts via CSV, Excel, or paste"
+description: "Upload a CSV or Excel file, paste tabular data, or enter contacts manually—then map fields, apply tags, and track results in Import History."
+sidebarTitle: "Import contacts"
+---
+
+Amplifi's contact import is one of the most capable parts of the platform. Whether you're onboarding a fresh list, syncing an updated export from another tool, or adding a handful of people by hand, the importer walks you through each step and gives you full control over how your data maps to Amplifi fields.
+
+## Import methods
+
+You can bring contacts into Amplifi four ways:
+
+<CardGroup cols={2}>
+  <Card title="CSV upload" icon="file-csv">
+    Upload a `.csv` file from your computer. The most common method for bulk list imports.
+  </Card>
+  <Card title="Excel upload" icon="file-excel">
+    Upload a `.xlsx` file directly. No need to convert to CSV first.
+  </Card>
+  <Card title="Paste tabular data" icon="clipboard">
+    Copy rows from a spreadsheet and paste them directly into the importer. Useful when you don't want to save a file.
+  </Card>
+  <Card title="Manual entry" icon="user-plus">
+    Add a single contact by filling out a form. Best for one-off additions.
+  </Card>
+</CardGroup>
+
+<Note>
+File uploads are limited to 100 MB. If your file exceeds this, split it into multiple imports.
+</Note>
+
+## The import flow
+
+Regardless of which method you use, the import process follows the same steps:
+
+<Steps>
+  <Step title="Upload or paste your data">
+    Choose your import method and provide the file or data. Amplifi parses your input and moves to the preview screen.
+  </Step>
+  <Step title="Review the parsed preview">
+    Check that the rows and columns look correct before proceeding. If the data looks wrong—extra header rows, misaligned columns—go back and adjust your source file.
+  </Step>
+  <Step title="Name the import">
+    Give the import a descriptive name, such as the list source or date. The name appears in Import History and can be used as a contact filter later.
+  </Step>
+  <Step title="Apply tags (optional)">
+    Optionally add one or more tags to every contact in this import. This is useful for tracking list origin (for example, `event-2026-spring`) or for targeting this group in a future campaign without building a separate segment.
+  </Step>
+  <Step title="Choose textability verification">
+    Decide whether Amplifi should verify each phone number's textability during processing. Verification adds time but improves the accuracy of your textable audience count. You can skip this step and run verification later.
+  </Step>
+  <Step title="Map fields">
+    Match your source columns to Amplifi contact fields. The importer auto-detects common columns like "Phone," "First Name," and "Email," but you review and confirm every mapping.
+
+    Supported destination fields include:
+
+    - Phone number
+    - First name and last name
+    - Email
+    - Address, city, state, ZIP
+    - Tags
+    - Timezone
+    - Opted-out status
+    - Custom fields
+
+    <Tip>
+    If your source data contains a column that doesn't match any existing field, you can create a new custom field on the spot during mapping—no need to set it up in advance.
+    </Tip>
+
+    Columns you don't want to import can be left unmapped and will be ignored.
+  </Step>
+  <Step title="Submit">
+    Review your settings and submit. Amplifi queues the import for background processing and you're free to continue using the app.
+  </Step>
+</Steps>
+
+## Background processing
+
+Imports run in the background after you submit. You don't need to stay on the page or wait for completion. For large lists, processing may take several minutes.
+
+To check the status of any import, go to **Settings → Import History**.
+
+## Import History
+
+Import History shows every import your organization has run, with the following columns:
+
+| Column | What it shows |
+|---|---|
+| Import name | The name you gave the import |
+| Total rows | Number of rows submitted |
+| Added | New contacts created |
+| Updated | Existing contacts that were updated |
+| Errors | Rows that could not be processed |
+| Textable | Contacts verified as textable |
+| Non-textable | Contacts verified as non-textable |
+| Verification progress | How far along textability verification is |
+
+<Info>
+If a row in your file matches a contact already in your account (by phone number), Amplifi updates that existing contact rather than creating a duplicate.
+</Info>
+
+## Tips for a clean import
+
+<AccordionGroup>
+  <Accordion title="Format phone numbers consistently">
+    Amplifi accepts several common phone number formats, but a consistent format in your source file reduces the chance of parse errors. Ten-digit US numbers (with or without country code) work reliably.
+  </Accordion>
+  <Accordion title="Use the import name as a filter later">
+    Once an import completes, you can filter your contact list by import name to see exactly which contacts came from that batch. This makes it easy to target or audit a specific list.
+  </Accordion>
+  <Accordion title="Apply tags during import for easy segmentation">
+    Adding a source tag (such as `newsletter-signup` or `event-jan-2026`) during import means you can immediately build a segment or campaign targeting that group—without needing to re-identify them later.
+  </Accordion>
+  <Accordion title="Run textability verification for new lists">
+    For any list you haven't previously verified, enable textability verification at import time. This prevents credits from being spent on numbers that can't receive SMS.
+  </Accordion>
+  <Accordion title="Create custom fields before or during import">
+    If your source data has columns that don't map to standard fields (for example, "Member ID" or "Region"), you can create new custom fields during the mapping step. They'll be available for filtering and merge fields after the import completes.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+Importing a contact with opted-out status set to true will mark that contact as opted out in Amplifi. They will not receive messages even if they are included in a segment or campaign. Only import opted-out status from trusted, current sources.
+</Warning>

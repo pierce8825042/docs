@@ -1,0 +1,90 @@
+---
+title: "Organizations and workspaces in Amplifi"
+description: "Understand how Amplifi organizations work, how to switch between them, why timezone matters, and what access roles mean for your team."
+sidebarTitle: "Organizations"
+---
+
+In Amplifi, an organization is your workspace. Every contact, campaign, poll, phone number, and billing record belongs to a specific organization — nothing leaks between them. If you're part of a team, everyone on your team works inside the same organization. If you manage multiple clients or programs, each one can have its own separate organization.
+
+## What's included in an organization
+
+Each organization is fully self-contained:
+
+- **Contacts** — your entire contact list, import history, tags, segments, and custom fields
+- **Campaigns** — all drafts, scheduled sends, active campaigns, and campaign analytics
+- **Polls** — all poll drafts, active polls, responses, and result links
+- **Conversations** — the two-way SMS inbox for your sending number
+- **Phone number** — the sending number used for all outbound messages
+- **Settings** — organization name, timezone, team members, and billing
+
+When you switch organizations, you're switching into a completely different workspace. Contacts from one organization are never visible in another.
+
+## Switching organizations
+
+If you have access to more than one organization, you can switch between them from the left sidebar. Look for the organization name near the top of the sidebar — clicking it opens a list of the organizations you belong to.
+
+<Note>
+  Switching organizations changes the active workspace for your entire session. Everything you see — contacts, campaigns, conversations, and settings — will belong to the new organization until you switch again.
+</Note>
+
+After you switch, Amplifi updates all views to reflect the new organization's data. If you were mid-draft in a campaign, that draft is saved in the original organization and will be there when you switch back.
+
+## Organization timezone
+
+The timezone you set for your organization affects three things:
+
+1. **Scheduling** — when you schedule a campaign or poll, the date and time you pick are interpreted in your organization's timezone
+2. **Timestamp display** — activity timestamps throughout the app display in your organization's timezone
+3. **Quiet-hours enforcement** — Amplifi enforces quiet hours based on your organization's timezone, which means sends are blocked outside the allowed window
+
+<Warning>
+  If your organization timezone is incorrect, scheduled sends will go out at the wrong time and quiet-hours enforcement will be miscalculated. Set the correct timezone in Settings before creating any campaigns.
+</Warning>
+
+To view or change your organization timezone:
+
+1. Click **Settings** in the left sidebar.
+2. Open the **General** tab.
+3. Update the **Organization timezone** field.
+4. Save your changes.
+
+## Team members and roles
+
+Amplifi's permission model is intentionally simple. Everyone on your team has the same day-to-day access — there's no separate viewer or editor tier at the organization level.
+
+### Standard member
+
+Standard members can:
+
+- View contacts, campaigns, polls, and conversations
+- Create and edit contacts
+- Import and export contacts
+- Compose, send, and schedule campaigns and polls
+- Reply to conversations
+- Use segments, tags, and filters
+
+### Billing contact
+
+Billing contacts have all the same capabilities as standard members, plus the ability to manage the organization's team membership and billing. Specifically, a billing contact can:
+
+- Add and remove team members
+- Grant or remove billing contact status from other members
+- Manage billing and subscription settings
+
+<Info>
+  Amplifi prevents you from removing the last billing contact on an organization without assigning the role to someone else first. Every organization must always have at least one billing contact.
+</Info>
+
+## Managing team members
+
+If you're a billing contact, you can manage your team from **Settings → General**. From there you can:
+
+- Add a new member by entering their information
+- Remove an existing member from the organization
+- Assign or remove billing contact status
+
+Changes take effect immediately. Removed members lose access to the organization right away.
+
+<Tip>
+  Before removing someone from your organization, make sure any drafts or in-progress work they own has been reviewed. Their campaigns and contacts remain in the organization, but they will no longer have access to manage them.
+</Tip>

@@ -1,0 +1,89 @@
+---
+title: "Merge fields for personalizing SMS messages"
+description: "Use merge fields to insert contact-specific data—like first name or city—directly into your campaign and poll message text at send time."
+sidebarTitle: "Merge fields"
+---
+
+Merge fields let you personalize outgoing messages with contact data without writing a separate message for each recipient. You write a placeholder like `{{firstName}}` in your message body, and Amplifi replaces it with the matching value from each contact's record when the message is sent.
+
+## How merge fields work
+
+When you include a merge field in a message, Amplifi looks up the corresponding field on each contact in your audience and substitutes the value before delivery. Every recipient gets a message tailored to their own data—no manual effort required.
+
+If a contact is missing a value for a merge field you've used, the field resolves to blank by default. The message still sends; the placeholder is simply omitted from that recipient's copy.
+
+<Note>
+Merge fields are supported in campaign message bodies and poll messages. They are not evaluated in message names, segment filters, or other non-message text fields.
+</Note>
+
+## Built-in merge fields
+
+These fields are available for every contact and map to Amplifi's standard contact data.
+
+| Merge field | Contact data |
+|---|---|
+| `{{firstName}}` | First name |
+| `{{lastName}}` | Last name |
+| `{{email}}` | Email address |
+| `{{phone}}` | Phone number |
+| `{{city}}` | City |
+| `{{state}}` | State |
+| `{{zip}}` | ZIP code |
+
+## Custom fields
+
+If you've added custom fields to your contacts, you can use them as merge fields using the same `{{fieldName}}` syntax. Use the field name exactly as it appears in your contact data.
+
+For example, if you have a custom field named `district`, you can reference it as `{{district}}` in your message text.
+
+<Tip>
+Custom field names are case-sensitive. Make sure the name in your merge field matches the field name in your contact records exactly.
+</Tip>
+
+## Example
+
+```
+Hi {{firstName}}, we're reaching out about your district in {{city}}.
+```
+
+For a contact named Maria in Austin, that message delivers as:
+
+```
+Hi Maria, we're reaching out about your district in Austin.
+```
+
+For a contact with no city on file, the same template delivers as:
+
+```
+Hi Maria, we're reaching out about your district in .
+```
+
+If blank values in your message text would look awkward, review your contact data before sending and filter to contacts who have the relevant fields populated.
+
+## Inserting merge fields in the composer
+
+<Steps>
+  <Step title="Open the message composer">
+    Create or edit a campaign or poll message. The message body field supports merge fields.
+  </Step>
+  <Step title="Type or insert a merge field">
+    Type the merge field directly into your message, including the double curly braces: `{{firstName}}`. You can add as many merge fields as you need in a single message.
+  </Step>
+  <Step title="Preview before sending">
+    Use the test send feature to send the message to yourself or a test recipient. This lets you confirm how merge fields resolve with real contact data before the full send.
+  </Step>
+</Steps>
+
+## Fallback behavior
+
+<AccordionGroup>
+  <Accordion title="What happens if a contact has no value for a merge field?">
+    The merge field is replaced with an empty string, and the message still delivers. For example, `Hi {{firstName}}!` would send as `Hi !` for a contact with no first name on file. Review your audience's data completeness before launch if this would create confusing messages.
+  </Accordion>
+  <Accordion title="What if I use a field name that doesn't exist?">
+    If the field name doesn't match any built-in field or custom field on the contact, the placeholder resolves to blank just as if the contact had no value for it.
+  </Accordion>
+  <Accordion title="Can I use a fallback value instead of blank?">
+    Amplifi does not currently support inline fallback syntax (like `{{firstName | there}}`). To ensure messages read naturally for all recipients, consider filtering your audience to contacts who have the relevant field populated before sending.
+  </Accordion>
+</AccordionGroup>

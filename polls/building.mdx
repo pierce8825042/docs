@@ -1,0 +1,103 @@
+---
+title: "Build and launch a text-message poll"
+description: "Create a poll, add questions with branching rules, target your audience, run a test, then start immediately or schedule for a future date and time."
+sidebarTitle: "Building a poll"
+---
+
+Building a poll in Amplifi follows a straightforward path: you draft the poll, add your questions, configure branching if you need it, pick your audience, set an optional completion target, and then either launch immediately or schedule it. Each step is covered below. Before sending to real contacts, you can always test the poll on your own phone to make sure the flow feels right.
+
+## Create and build your poll
+
+<Steps>
+  <Step title="Create a new poll">
+    From the left sidebar, navigate to **Polls** and click **Create Poll**. Give your poll a name—this is for your reference only and won't be seen by participants.
+
+    You can also add an optional introductory message that will be sent to participants before question 1. Use this to give context, set expectations, or provide opt-out instructions.
+  </Step>
+
+  <Step title="Add your questions">
+    Click **Add Question** to start building the question flow. For each question, choose a question type and write your question text.
+
+    **Question types:**
+
+    - **Multiple choice** — List the answer options participants can choose from. This is the most reliable type and is recommended for most polls.
+    - **Yes/No** — A two-option version of multiple choice.
+    - **Number** — Ask participants to reply with a number.
+    - **Text** — Ask participants to reply with a free-form text response.
+
+    You can add up to 20 questions per poll. Reorder them by dragging or using the move controls.
+
+    <Note>
+      Multiple-choice questions produce the most consistent, analyzable responses. Use text questions sparingly—open-ended replies require more manual review and are harder to aggregate.
+    </Note>
+  </Step>
+
+  <Step title="Add branching rules (optional)">
+    Branching lets you route participants to different questions based on their answer. To add a branching rule, open a question and look for the branching or routing option.
+
+    Set a condition—for example, "if the participant answers Option A, go to Question 5"—and select the destination question. Participants who don't match any rule continue to the next question in sequence.
+
+    You can also set a **termination condition**: if a participant gives a specific answer, end the poll for them immediately and send them a termination message. This is useful for screening out ineligible respondents early.
+
+    <Tip>
+      Map your branching logic on paper before building it in the tool. It's much easier to spot dead ends and missing paths before you start wiring them up.
+    </Tip>
+  </Step>
+
+  <Step title="Set your targeting">
+    Choose who receives the poll. You have three options:
+
+    - **All contacts** — Every contact in your organization
+    - **Saved segment** — A pre-built audience from your Segments list
+    - **Ad hoc filter** — A one-time filter you build now without saving
+
+    Amplifi shows you an estimated count of matching contacts so you know your reach before you launch.
+  </Step>
+
+  <Step title="Set a completion target (optional)">
+    If you want the poll to stop automatically after a certain number of completed responses, enter a completion target. When that number is reached, Amplifi closes the poll to new participants. Anyone already mid-poll can still finish.
+
+    Leave this blank if you want all targeted contacts to participate regardless of how many responses come in.
+  </Step>
+
+  <Step title="Send a test poll">
+    Before launching to your real audience, send a test to your own phone number. The test sends the full poll flow—intro message, questions, and branching—exactly as participants will experience it.
+
+    Test sends don't count against your contact list or affect any analytics. Use this step to catch typos, check branching logic, and confirm the timing feels right.
+  </Step>
+
+  <Step title="Start or schedule the poll">
+    When you're ready, choose how to launch:
+
+    - **Start now** — The poll goes active immediately and Amplifi begins sending intro messages (or the first question, if you skipped an intro) to your target audience.
+    - **Schedule** — Pick a date, time, and timezone. The poll status changes to **Scheduled** and Amplifi will start it automatically at the specified time.
+
+    <Note>
+      Quiet hours (9 PM–9 AM local time) apply to all poll messages. If you schedule a poll during quiet hours, the first messages will be deferred until quiet hours end.
+    </Note>
+
+    If you scheduled a poll but need to change your plans, you can unschedule it from the poll detail page, which returns it to **Draft** status.
+  </Step>
+</Steps>
+
+## Adding contacts to a live poll
+
+You can expand the audience of an active poll after it has launched. From the poll detail page, use the **Add Contacts** option to target additional contacts using a segment or filter. Those contacts will be sent the poll from the beginning, regardless of how far along other participants are.
+
+This is useful when:
+- You imported a new batch of contacts after the poll started
+- You want to extend the poll to an additional segment
+- You hit your completion target but need more responses from a specific group
+
+<Warning>
+  Contacts who are already participating in the poll won't be re-enrolled. Amplifi checks for existing participation before sending the intro message to anyone in the expanded audience.
+</Warning>
+
+## Participant timeouts and reminders
+
+Participants have **8 hours** to complete the poll from the moment they receive their first question. Amplifi manages this automatically:
+
+- At **6 hours**, participants who haven't responded receive a reminder message
+- At **8 hours**, unresponsive participants are marked as **timed out** and no further questions are sent to them
+
+You don't need to configure or enable this—it applies to every participant in every poll. The timeout clock accounts for quiet hours, so a participant who receives their first question at 8:30 PM won't be timed out during the overnight window.

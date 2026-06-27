@@ -1,0 +1,98 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "almond",
+  "name": "Amplifi",
+  "colors": {
+    "primary": "#9c85e0",
+    "light": "#fbfaff",
+    "dark": "#1a1a2e"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/pierce8825042/Amplifi-git"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "organizations"
+            ]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "contacts/overview",
+              "contacts/import",
+              "contacts/segments"
+            ]
+          },
+          {
+            "group": "Campaigns",
+            "pages": [
+              "campaigns/overview",
+              "campaigns/composing",
+              "campaigns/scheduling",
+              "campaigns/ab-testing",
+              "campaigns/analytics"
+            ]
+          },
+          {
+            "group": "Polls",
+            "pages": [
+              "polls/overview",
+              "polls/building",
+              "polls/results"
+            ]
+          },
+          {
+            "group": "Conversations & Automations",
+            "pages": [
+              "conversations/inbox",
+              "automations/overview"
+            ]
+          },
+          {
+            "group": "Account",
+            "pages": [
+              "account/billing",
+              "account/phone-numbers",
+              "account/team"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "API",
+            "pages": [
+              "api/authentication",
+              "api/contacts",
+              "api/campaigns",
+              "api/polls",
+              "api/conversations",
+              "api/analytics"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "reference/merge-fields",
+              "reference/webhooks",
+              "reference/compliance"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

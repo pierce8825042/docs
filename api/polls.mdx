@@ -1,0 +1,330 @@
+---
+title: "REST API endpoints for polls and surveys"
+description: "Create multi-question SMS polls with branching logic, start them immediately or on a schedule, retrieve participants, and check completion progress."
+---
+
+Polls let you collect structured responses from contacts over SMS. A poll consists of an optional introductory message, one or more questions (multiple choice or open-ended), and an optional closing message. Participants receive questions sequentially via text and respond by replying with their chosen option code. Branching logic lets you route participants to different questions based on their answers.
+
+## Poll statuses
+
+| Status | Description |
+|--------|-------------|
+| `draft` | Being configured; not yet started. |
+| `scheduled` | Approved to start at `scheduledFor`. |
+| `active` | Currently sending questions to participants. |
+| `paused` | Execution paused; participants retain their progress. |
+| `completed` | Poll finished or manually closed. |
+
+## List polls
+
+<br />
+
+```
+GET /api/polls
+```
+
+Returns all polls for your organization ordered by creation date descending.
+
+### Response
+
+```json
+[
+  {
+    "id": "d4e5f6a7-b8c9-0123-defg-456789012345",
+    "organizationId": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+    "name": "April Voter Survey",
+    "status": "completed",
+    "introductoryText": "Hi {{firstName}}, we have 2 quick questions for you.",
+    "outroText": "Thanks for your feedback!",
+    "questions": [...],
+    "completionTargetEnabled": true,
+    "completionTarget": 500,
+    "scheduledFor": null,
+    "timezone": null,
+    "createdAt": "2025-04-01T09:00:00.000Z",
+    "updatedAt": "2025-04-02T16:30:00.000Z"
+  }
+]
+```
+
+## Create a poll
+
+<br />
+
+```
+POST /api/polls
+```
+
+Creates a new poll in `draft` status. Questions must be numbered sequentially starting at 1.
+
+### Request body
+
+<ParamField body="name" type="string" required>
+  Display name for the poll (max 200 characters).
+</ParamField>
+
+<ParamField body="introductoryText" type="string">
+  Opening message sent to participants before the first question. Supports merge fields (`{{firstName}}`, etc.).
+</ParamField>
+
+<ParamField body="outroText" type="string">
+  Closing message sent after the participant completes all questions.
+</ParamField>
+
+<ParamField body="introMediaUrl" type="string (URL)">
+  Public URL of media to attach to the introductory message, making it MMS.
+</ParamField>
+
+<ParamField body="outroMediaUrl" type="string (URL)">
+  Public URL of media to attach to the closing message.
+</ParamField>
+
+<ParamField body="questions" type="object[]" required>
+  Array of question objects. Must contain between 1 and 20 questions numbered sequentially from 1.
+
+  <Expandable title="Question object fields">
+    <ParamField body="questionNumber" type="number" required>
+      Sequential question number starting at 1.
+    </ParamField>
+    <ParamField body="text" type="string" required>
+      The question text sent as an SMS message.
+    </ParamField>
+    <ParamField body="type" type="string" required>
+      Question type: `multiple_choice` or `open_ended`.
+    </ParamField>
+    <ParamField body="options" type="object[]">
+      Required for `multiple_choice`. Array of 2–9 option objects, each with `code` (the reply keyword, e.g. `"1"`) and `label` (the display text, e.g. `"Yes"`).
+    </ParamField>
+    <ParamField body="responseCode" type="string" required>
+      The identifier used to store this question's response in analytics (e.g. `"q1"`).
+    </ParamField>
+    <ParamField body="branchingLogic" type="object">
+      Optional branching rule: `{ "condition": "1", "nextQuestion": 3 }`. When the participant's response code matches `condition`, they are routed to `nextQuestion` instead of the next sequential question.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="completionTargetEnabled" type="boolean">
+  When `true`, the poll automatically closes once `completionTarget` responses are collected.
+</ParamField>
+
+<ParamField body="completionTarget" type="number">
+  Required when `completionTargetEnabled` is `true`. Number of completed participants at which the poll closes automatically.
+</ParamField>
+
+### Example request
+
+```json
+{
+  "name": "April Voter Survey",
+  "introductoryText": "Hi {{firstName}}, we have 2 quick questions for you today.",
+  "outroText": "Thank you for your feedback!",
+  "questions": [
+    {
+      "questionNumber": 1,
+      "text": "Do you plan to vote in the upcoming election? Reply 1 for Yes, 2 for No.",
+      "type": "multiple_choice",
+      "responseCode": "q1_vote_intent",
+      "options": [
+        { "code": "1", "label": "Yes" },
+        { "code": "2", "label": "No" }
+      ]
+    },
+    {
+      "questionNumber": 2,
+      "text": "What is the most important issue to you? Reply 1 for Economy, 2 for Healthcare, 3 for Education.",
+      "type": "multiple_choice",
+      "responseCode": "q2_top_issue",
+      "options": [
+        { "code": "1", "label": "Economy" },
+        { "code": "2", "label": "Healthcare" },
+        { "code": "3", "label": "Education" }
+      ]
+    }
+  ],
+  "completionTargetEnabled": true,
+  "completionTarget": 500
+}
+```
+
+### Response
+
+Returns the created poll with status `201`.
+
+```json
+{
+  "id": "d4e5f6a7-b8c9-0123-defg-456789012345",
+  "organizationId": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+  "name": "April Voter Survey",
+  "status": "draft",
+  "introductoryText": "Hi {{firstName}}, we have 2 quick questions for you today.",
+  "outroText": "Thank you for your feedback!",
+  "questions": [...],
+  "completionTargetEnabled": true,
+  "completionTarget": 500,
+  "createdAt": "2025-04-24T10:00:00.000Z",
+  "updatedAt": "2025-04-24T10:00:00.000Z"
+}
+```
+
+## Get a poll
+
+<br />
+
+```
+GET /api/polls/:id
+```
+
+Returns the full poll record including questions and current status.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The poll's UUID.
+</ParamField>
+
+## Start a poll
+
+<br />
+
+```
+POST /api/polls/:id/start
+```
+
+Starts a poll immediately or schedules it for a future time. You must specify the audience using `segmentId` or `contactFilter`. If `scheduledFor` is more than 30 seconds in the future, the poll is scheduled rather than started immediately.
+
+When started immediately, the poll status changes to `active` and message delivery begins in the background. The endpoint returns `202 Accepted` immediately while sending continues asynchronously.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The poll's UUID.
+</ParamField>
+
+### Request body
+
+<ParamField body="segmentId" type="string (UUID)">
+  UUID of a saved segment to use as the audience. Mutually exclusive with `contactFilter`.
+</ParamField>
+
+<ParamField body="contactFilter" type="object">
+  Ad-hoc filter defining the audience. Mutually exclusive with `segmentId`.
+</ParamField>
+
+<ParamField body="scheduledFor" type="string (ISO 8601 datetime)">
+  When to start the poll. If omitted or within 30 seconds of now, the poll starts immediately.
+</ParamField>
+
+<ParamField body="timezone" type="string">
+  IANA timezone string for display purposes (e.g. `America/New_York`). Used when storing the scheduled time.
+</ParamField>
+
+### Example request — start immediately
+
+```json
+{
+  "segmentId": "c3d4e5f6-a7b8-9012-cdef-234567890123"
+}
+```
+
+### Example request — schedule for later
+
+```json
+{
+  "contactFilter": { "tags": ["registered-voter"], "tagsLogic": "AND" },
+  "scheduledFor": "2025-04-28T14:00:00.000Z",
+  "timezone": "America/New_York"
+}
+```
+
+### Response
+
+Returns the updated poll object. When starting immediately, status is `active` and HTTP status is `202`. When scheduling, status is `scheduled` and HTTP status is `200`.
+
+```json
+{
+  "id": "d4e5f6a7-b8c9-0123-defg-456789012345",
+  "status": "active",
+  "message": "Poll starting in background"
+}
+```
+
+## List participants
+
+<br />
+
+```
+GET /api/polls/:id/participants
+```
+
+Returns participants in the poll with their contact details and current progress.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The poll's UUID.
+</ParamField>
+
+### Query parameters
+
+<ParamField query="status" type="string">
+  Filter by participant status: `not_started`, `in_progress`, `completed`, or `terminated`. Omit to return all.
+</ParamField>
+
+<ParamField query="search" type="string">
+  Search participants by first name, last name, or phone number.
+</ParamField>
+
+<ParamField query="limit" type="number">
+  Number of results to return. Default `100`, max `500`.
+</ParamField>
+
+### Response
+
+```json
+{
+  "poll": {
+    "id": "d4e5f6a7-b8c9-0123-defg-456789012345",
+    "name": "April Voter Survey",
+    "status": "active",
+    "questionCount": 2
+  },
+  "participants": [
+    {
+      "participantId": "e5f6a7b8-c9d0-1234-efgh-567890123456",
+      "contactId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "phone": "+19195551234",
+      "status": "completed",
+      "currentQuestionNumber": 2,
+      "startedAt": "2025-04-24T10:05:00.000Z",
+      "completedAt": "2025-04-24T10:08:00.000Z",
+      "responseCount": 2,
+      "lastResponseAt": "2025-04-24T10:08:00.000Z"
+    }
+  ]
+}
+```
+
+## Key fields reference
+
+<ResponseField name="questions[].type" type="string">
+  `multiple_choice` requires participants to reply with one of the defined option codes. `open_ended` accepts any text reply.
+</ResponseField>
+
+<ResponseField name="questions[].options" type="object[]">
+  Each option has a `code` (the keyword participants text back, e.g. `"1"`) and a `label` (the human-readable choice shown in the question text). Multiple-choice questions require 2–9 options.
+</ResponseField>
+
+<ResponseField name="completionTarget" type="number | null">
+  When set, the poll closes automatically after this many participants complete all questions.
+</ResponseField>
+
+<Note>
+  Polls respect quiet hours (8 AM–9 PM in the organization's timezone). Questions are not sent outside this window; participants in progress when quiet hours begin resume the next day.
+</Note>
+
+<Warning>
+  You cannot update an `active` poll's questions or structure. Pause the poll first, then update it, then resume.
+</Warning>

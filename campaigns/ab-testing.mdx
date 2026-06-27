@@ -1,0 +1,82 @@
+---
+title: "A/B test campaign messages to optimize results"
+description: "Send two message variants to a small sample of your audience, compare delivery and reply performance, then send the winning version to everyone else."
+sidebarTitle: "A/B Testing"
+---
+
+When you're not sure which version of a message will land best, an A/B test lets the data decide. Amplifi sends two different message variants to a small, randomly selected sample of your audience. After reviewing the results, you choose the winning variant and send it to the remaining contacts. This approach reduces risk and helps you learn what resonates with your audience before going wide.
+
+## How A/B testing works
+
+Amplifi splits your audience automatically when you enable A/B testing:
+
+- **Variant A** goes to **5%** of your audience
+- **Variant B** goes to **5%** of your audience
+- The remaining **90%** is held back until you pick a winner
+
+The sample contacts are selected randomly, so both variants reach a representative slice of your audience. Once the sample sends complete, you review performance and select the winning variant to send to the other 90%.
+
+<Info>
+  A/B testing works best with larger audiences where a 5% sample gives you statistically meaningful results. With very small lists, the sample sizes may be too small to draw clear conclusions.
+</Info>
+
+## Set up an A/B test
+
+<Steps>
+  <Step title="Start composing a campaign">
+    Go to **Campaigns** and click **Create Campaign**. Choose your audience and set up your campaign as usual.
+  </Step>
+  <Step title="Enable A/B testing">
+    In the campaign composer, enable the A/B test option. This adds a second message body field to the form.
+  </Step>
+  <Step title="Write Variant A">
+    Write your first message version in the Variant A field. This is typically your control message — the version you'd normally send.
+  </Step>
+  <Step title="Write Variant B">
+    Write your second message version in the Variant B field. Change whatever you want to test: the opening line, call to action, tone, length, or whether you include a link.
+  </Step>
+  <Step title="Launch the A/B test">
+    Schedule or send the campaign. Amplifi immediately sends Variant A to 5% of your audience and Variant B to another 5%. The other 90% receives nothing yet.
+  </Step>
+</Steps>
+
+## Compare variants and pick a winner
+
+Once the sample messages have been sent, go to the campaign detail page to review performance.
+
+<Tabs>
+  <Tab title="Metrics to compare">
+    Amplifi shows you side-by-side stats for each variant:
+
+    - **Sent count** — how many messages went out per variant
+    - **Delivery rate** — percentage of sent messages confirmed delivered
+    - **Reply rate** — percentage of recipients who replied
+    - **Link click rate** — if you included a tracked link, the percentage who clicked
+
+    Look for meaningful differences across these metrics. A variant with a higher delivery rate and higher reply rate is a clear winner. If results are mixed, consider which metric matters most for your campaign goal.
+  </Tab>
+  <Tab title="Selecting a winner">
+    When you're ready to send to the full audience:
+
+    1. Open the campaign detail page
+    2. Go to the A/B test section
+    3. Select the winning variant
+    4. Confirm the send
+
+    Amplifi delivers the winning message to the remaining 90% of your audience. The campaign status updates as those messages go out.
+
+    <Warning>
+      Once you select a winner and send to the remaining audience, you cannot change your choice. Review the metrics carefully before confirming.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Tips for effective A/B tests
+
+<Tip>
+  Test one thing at a time. If Variant A and Variant B differ in multiple ways — the opening, the call to action, and the link placement — you won't know which change drove the difference. Isolate one variable per test for cleaner results.
+</Tip>
+
+<Tip>
+  Give the sample sends enough time to collect replies and link clicks before picking a winner. Reply rates in particular can take a few hours to stabilize after delivery.
+</Tip>

@@ -1,0 +1,68 @@
+---
+title: "SMS and MMS campaigns: overview and key concepts"
+description: "Learn what campaigns are in Amplifi, how campaign statuses work, and which features help you send targeted bulk messages with confidence."
+sidebarTitle: "Overview"
+---
+
+Campaigns are how you reach your audience at scale. When you send a campaign, Amplifi delivers an SMS or MMS message to every eligible contact in your chosen audience — a saved segment or a custom filter you build at send time. From first draft to final analytics, everything happens in one place: compose your message, personalize it with merge fields, test it before launch, schedule it for the right moment, and review delivery results afterward.
+
+## Campaign statuses
+
+Every campaign moves through a set of statuses that tell you exactly where it is in its lifecycle.
+
+| Status | What it means |
+|---|---|
+| **Draft** | You're still working on it. Nothing has been sent. |
+| **Scheduled** | The campaign is set to send at a future time. |
+| **Pending** | The campaign has been submitted and is preparing to send. |
+| **Sending** | Messages are actively being delivered to recipients. |
+| **Completed** | All messages have been processed. |
+| **Paused** | Sending has been temporarily stopped. |
+| **Failed** | Something went wrong. Review the campaign detail for error information. |
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="Drafts and autosave" icon="floppy-disk">
+    Amplifi automatically saves your work as you compose. Come back and pick up where you left off at any time.
+  </Card>
+  <Card title="Personalization" icon="user">
+    Insert merge fields like `{{firstName}}` or custom fields to make every message feel personal.
+  </Card>
+  <Card title="MMS support" icon="image">
+    Attach an image to send a picture message instead of plain text. MMS campaigns cost 2 credits per message.
+  </Card>
+  <Card title="Duplicate-send protection" icon="shield-check">
+    Before launch, Amplifi checks whether the same audience was already contacted that day and warns you before proceeding.
+  </Card>
+</CardGroup>
+
+## What you can do with campaigns
+
+- Create SMS or MMS campaigns from the **Campaigns** section or via the **Create Campaign** shortcut
+- Save drafts and return to them later — autosave keeps your work safe
+- Duplicate existing campaigns to reuse message content or audience targeting
+- Send immediately or schedule for a specific date and time
+- Test your message with up to 5 recipients before launching
+- Target a saved segment or build a one-time filter based on tags and contact attributes
+- Attach images to send MMS messages
+- Include a tracked short link and see click-level analytics per contact
+- Run an A/B test to find the message that performs best before sending to your full audience
+- Export campaign results as CSV for reporting
+
+## Explore campaigns
+
+<CardGroup cols={2}>
+  <Card title="Compose a campaign" icon="pen-to-square" href="/campaigns/composing">
+    Choose your audience, write your message, add images, and insert merge fields.
+  </Card>
+  <Card title="Schedule a campaign" icon="calendar" href="/campaigns/scheduling">
+    Send now or set a future time with timezone and quiet-hours support.
+  </Card>
+  <Card title="A/B testing" icon="flask" href="/campaigns/ab-testing">
+    Test two message variants on a sample before sending the winner to everyone.
+  </Card>
+  <Card title="Analytics" icon="chart-bar" href="/campaigns/analytics">
+    Track delivery, replies, link clicks, and more after your campaign sends.
+  </Card>
+</CardGroup>

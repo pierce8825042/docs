@@ -1,0 +1,365 @@
+---
+title: "REST API endpoints for contact management"
+description: "Create, read, update, and delete contacts in your Amplifi organization. Filter by tags, textability, opt-out status, and more with keyset pagination."
+---
+
+The contacts API lets you manage the people in your Amplifi organization. Each contact belongs to exactly one organization and is identified by a UUID. Contacts store phone numbers in E.164 format, support arbitrary tags for segmentation, and carry a `isTextable` flag derived from Twilio Lookup that controls whether they can receive SMS. All write endpoints require authentication with write-level access.
+
+## List contacts
+
+<br />
+
+```
+GET /api/contacts
+```
+
+Returns a paginated list of contacts for your organization. Supports keyset pagination (preferred) or offset pagination. All filter parameters are optional and can be combined.
+
+### Query parameters
+
+<ParamField query="search" type="string">
+  Full-text search across `firstName`, `lastName`, `email`, and `phone`. Fuzzy matching is applied for terms of 3 or more characters.
+</ParamField>
+
+<ParamField query="tags" type="string">
+  Comma-separated list of tags to filter by (e.g. `tags=vip,member`). Use `tagsLogic` to control AND vs. OR matching.
+</ParamField>
+
+<ParamField query="tagsLogic" type="string">
+  Logic for tag filtering. `OR` (default) returns contacts that have any of the specified tags. `AND` returns contacts that have all of them.
+</ParamField>
+
+<ParamField query="isTextable" type="boolean">
+  Filter by textability status. `true` returns only textable contacts; `false` returns non-textable.
+</ParamField>
+
+<ParamField query="optedOut" type="boolean">
+  Filter by opt-out status. `true` returns opted-out contacts; `false` returns opted-in.
+</ParamField>
+
+<ParamField query="hasEmail" type="boolean">
+  Filter to contacts that have (`true`) or do not have (`false`) an email address.
+</ParamField>
+
+<ParamField query="hasPhone" type="boolean">
+  Filter to contacts that have (`true`) or do not have (`false`) a phone number.
+</ParamField>
+
+<ParamField query="state" type="string">
+  Comma-separated list of US state codes to filter by (e.g. `state=NC,SC`).
+</ParamField>
+
+<ParamField query="zip" type="string">
+  Filter to contacts matching an exact ZIP code.
+</ParamField>
+
+<ParamField query="segmentId" type="string (UUID)">
+  Return only contacts in a saved segment. When provided, ad-hoc filter params (`search`, `tags`, etc.) are ignored.
+</ParamField>
+
+<ParamField query="limit" type="number">
+  Number of results to return. Default `50`, max `200`.
+</ParamField>
+
+<ParamField query="cursor" type="string">
+  Keyset pagination cursor from a previous response. Pass the `cursor` value to fetch the next page.
+</ParamField>
+
+<ParamField query="offset" type="number">
+  Offset-based pagination fallback. Ignored when `cursor` is present.
+</ParamField>
+
+<ParamField query="sortBy" type="string">
+  Sort field. `updated_at` (default) or `created_at`.
+</ParamField>
+
+<ParamField query="includeTotal" type="boolean">
+  When `true`, includes a `total` count in the response. This runs a separate COUNT query and adds latency.
+</ParamField>
+
+### Response
+
+```json
+{
+  "contacts": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "organizationId": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+      "phone": "+19195551234",
+      "email": "jane@example.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "address": "123 Main St",
+      "city": "Raleigh",
+      "state": "NC",
+      "zip": "27601",
+      "tags": ["vip", "donor"],
+      "isTextable": true,
+      "isOptedIn": true,
+      "optedOutAt": null,
+      "timezone": "America/New_York",
+      "isStarred": false,
+      "isArchived": false,
+      "createdAt": "2025-01-15T14:30:00.000Z",
+      "updatedAt": "2025-03-01T09:12:00.000Z"
+    }
+  ],
+  "limit": 50,
+  "cursor": "{\"updated_at\":\"2025-03-01T09:12:00.000Z\",\"id\":\"a1b2c3d4-...\"}",
+  "hasMore": true,
+  "sortBy": "updated_at"
+}
+```
+
+## Create a contact
+
+<br />
+
+```
+POST /api/contacts
+```
+
+Creates a new contact. If a contact with the same phone number or email already exists in your organization, Amplifi merges the new data into the existing record and returns an `_outcome` of `merged` rather than `created`.
+
+Phone numbers are normalized to E.164 format automatically. A Twilio Lookup job is queued in the background to determine textability; the contact is created with `isTextable: null` until the lookup completes.
+
+### Request body
+
+<ParamField body="phone" type="string">
+  Phone number in any standard US format. Stored as E.164 (e.g. `+19195551234`).
+</ParamField>
+
+<ParamField body="firstName" type="string">
+  Contact's first name.
+</ParamField>
+
+<ParamField body="lastName" type="string">
+  Contact's last name.
+</ParamField>
+
+<ParamField body="email" type="string">
+  Contact's email address.
+</ParamField>
+
+<ParamField body="address" type="string">
+  Street address.
+</ParamField>
+
+<ParamField body="city" type="string">
+  City.
+</ParamField>
+
+<ParamField body="state" type="string">
+  Two-letter US state code.
+</ParamField>
+
+<ParamField body="zip" type="string">
+  ZIP or postal code.
+</ParamField>
+
+<ParamField body="tags" type="string[]">
+  Array of tag strings to apply to the contact.
+</ParamField>
+
+<ParamField body="customFields" type="object">
+  Key-value pairs for custom data. Up to 20 custom fields per contact.
+</ParamField>
+
+<ParamField body="timezone" type="string">
+  IANA timezone string (e.g. `America/Chicago`).
+</ParamField>
+
+### Example request
+
+```json
+{
+  "phone": "9195551234",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane@example.com",
+  "tags": ["vip", "donor"],
+  "customFields": {
+    "memberId": "M-10042",
+    "chapter": "Triangle"
+  }
+}
+```
+
+### Response
+
+Returns the created or merged contact with status `201` (created) or `200` (merged). The `_outcome` field indicates which occurred.
+
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "organizationId": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+  "phone": "+19195551234",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane@example.com",
+  "tags": ["vip", "donor"],
+  "isTextable": null,
+  "isOptedIn": true,
+  "createdAt": "2025-04-24T10:00:00.000Z",
+  "updatedAt": "2025-04-24T10:00:00.000Z",
+  "_outcome": "created"
+}
+```
+
+<Note>
+  A `409 Conflict` is returned only when a unique constraint violation cannot be resolved through merging. In most cases, duplicate phone or email results in a merge rather than an error.
+</Note>
+
+## Get a contact
+
+<br />
+
+```
+GET /api/contacts/:id
+```
+
+Returns a single contact by its UUID. Returns `404` if the contact does not exist in your organization.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The contact's UUID.
+</ParamField>
+
+### Response
+
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "organizationId": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+  "phone": "+19195551234",
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane@example.com",
+  "address": "123 Main St",
+  "city": "Raleigh",
+  "state": "NC",
+  "zip": "27601",
+  "tags": ["vip", "donor"],
+  "customFields": { "memberId": "M-10042" },
+  "isTextable": true,
+  "isOptedIn": true,
+  "optedOutAt": null,
+  "timezone": "America/New_York",
+  "isStarred": false,
+  "isArchived": false,
+  "createdAt": "2025-01-15T14:30:00.000Z",
+  "updatedAt": "2025-03-01T09:12:00.000Z"
+}
+```
+
+## Update a contact
+
+<br />
+
+```
+PUT /api/contacts/:id
+```
+
+Updates an existing contact. Send only the fields you want to change; all other fields retain their current values.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The contact's UUID.
+</ParamField>
+
+### Request body
+
+All fields are optional. Include only those you want to update.
+
+<ParamField body="firstName" type="string">
+  Updated first name.
+</ParamField>
+
+<ParamField body="lastName" type="string">
+  Updated last name.
+</ParamField>
+
+<ParamField body="email" type="string">
+  Updated email address.
+</ParamField>
+
+<ParamField body="tags" type="string[]">
+  Replacement tag array. This replaces the entire tag list, not appends to it.
+</ParamField>
+
+<ParamField body="customFields" type="object">
+  Replacement custom fields object. Keys not present in the new object are removed.
+</ParamField>
+
+<ParamField body="timezone" type="string">
+  IANA timezone string.
+</ParamField>
+
+### Example request
+
+```json
+{
+  "firstName": "Jane",
+  "tags": ["vip", "donor", "2025-member"],
+  "customFields": {
+    "memberId": "M-10042",
+    "chapter": "Triangle"
+  }
+}
+```
+
+## Delete a contact
+
+<br />
+
+```
+DELETE /api/contacts/:id
+```
+
+Permanently deletes a contact and all associated data (timeline events, notes, poll participation). This action cannot be undone.
+
+### Path parameters
+
+<ParamField path="id" type="string (UUID)" required>
+  The contact's UUID.
+</ParamField>
+
+### Response
+
+Returns `200` with `{ "id": "<uuid>", "deleted": true }` on success, or `404` if the contact is not found.
+
+## Key fields reference
+
+<ResponseField name="id" type="string">
+  UUID uniquely identifying the contact within Amplifi.
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+  Phone number in E.164 format (e.g. `+19195551234`).
+</ResponseField>
+
+<ResponseField name="isTextable" type="boolean | null">
+  Whether the phone number is confirmed textable via Twilio Lookup. `null` means the lookup has not completed yet. `false` means the number is not textable (landline, VOIP, etc.).
+</ResponseField>
+
+<ResponseField name="isOptedIn" type="boolean">
+  `true` if the contact is opted in to receive messages. `false` if they have opted out (sent STOP or equivalent).
+</ResponseField>
+
+<ResponseField name="optedOutAt" type="string | null">
+  ISO 8601 timestamp of when the contact opted out, or `null` if they are still opted in.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Array of tag strings. Used for ad-hoc audience targeting in campaigns and polls.
+</ResponseField>
+
+<ResponseField name="customFields" type="object">
+  Key-value pairs of custom data. Values are used in campaign merge fields.
+</ResponseField>
+
+<Warning>
+  Contacts with `isOptedIn: false` cannot receive campaign messages or conversation replies. Attempting to send to an opted-out contact returns a `400` error.
+</Warning>

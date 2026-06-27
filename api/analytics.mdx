@@ -1,0 +1,353 @@
+---
+title: "REST API endpoints for analytics and reporting"
+description: "Retrieve message delivery analytics, campaign performance trends, daily time-series data, billing status, and credit balance for your organization."
+---
+
+The analytics API gives you programmatic access to messaging performance data, campaign trends, billing status, and credit balance. All analytics endpoints are read-only and scoped to your organization. Date ranges default to the last 30 days when not specified.
+
+## Analytics overview
+
+<br />
+
+```
+GET /api/analytics/overview
+```
+
+Returns a high-level summary of campaign activity, message delivery, and contact counts for a given date range. This is the primary endpoint for building a dashboard view of your organization's messaging health.
+
+### Query parameters
+
+<ParamField query="startDate" type="string (ISO 8601 date)">
+  Start of the date range. Defaults to 30 days ago.
+</ParamField>
+
+<ParamField query="endDate" type="string (ISO 8601 date)">
+  End of the date range. Defaults to now.
+</ParamField>
+
+### Response
+
+```json
+{
+  "dateRange": {
+    "start": "2025-03-25T00:00:00.000Z",
+    "end": "2025-04-24T00:00:00.000Z"
+  },
+  "campaigns": {
+    "total": 12,
+    "completed": 10,
+    "sending": 0,
+    "scheduled": 1,
+    "failed": 1
+  },
+  "messages": {
+    "total": 48500,
+    "sent": 48200,
+    "delivered": 46800,
+    "failed": 300
+  },
+  "contacts": {
+    "total": 15420,
+    "textable": 14100,
+    "optedOut": 320
+  },
+  "deliveryRate": 96.89
+}
+```
+
+### Response fields
+
+<ResponseField name="campaigns" type="object">
+  Counts of campaigns by status created within the date range.
+</ResponseField>
+
+<ResponseField name="messages.total" type="number">
+  Total outbound messages logged in the date range (excludes seed/test messages).
+</ResponseField>
+
+<ResponseField name="messages.delivered" type="number">
+  Messages confirmed delivered to the carrier or handset.
+</ResponseField>
+
+<ResponseField name="deliveryRate" type="number">
+  Percentage of total messages that reached `delivered` status. Calculated as `(delivered / total) * 100`.
+</ResponseField>
+
+<ResponseField name="contacts.textable" type="number">
+  Contacts with `isTextable: true`—confirmed reachable by SMS.
+</ResponseField>
+
+<ResponseField name="contacts.optedOut" type="number">
+  Contacts with `isOptedIn: false`—they have opted out and cannot receive messages.
+</ResponseField>
+
+## Message and campaign trends
+
+<br />
+
+```
+GET /api/analytics/trends
+```
+
+Returns daily time-series data suitable for charting message volume or campaign activity over time.
+
+### Query parameters
+
+<ParamField query="metric" type="string">
+  `messages` (default) returns daily message counts by status. `campaigns` returns daily campaign counts by status.
+</ParamField>
+
+<ParamField query="startDate" type="string (ISO 8601 date)">
+  Start of the date range. Defaults to 30 days ago.
+</ParamField>
+
+<ParamField query="endDate" type="string (ISO 8601 date)">
+  End of the date range. Defaults to now.
+</ParamField>
+
+### Response — messages metric
+
+```json
+[
+  {
+    "date": "2025-04-20",
+    "total": 4200,
+    "sent": 4187,
+    "delivered": 4050,
+    "failed": 13
+  },
+  {
+    "date": "2025-04-21",
+    "total": 0,
+    "sent": 0,
+    "delivered": 0,
+    "failed": 0
+  }
+]
+```
+
+### Response — campaigns metric
+
+```json
+[
+  {
+    "date": "2025-04-20",
+    "total": 1,
+    "completed": 1,
+    "sending": 0,
+    "failed": 0
+  }
+]
+```
+
+## Top performing campaigns
+
+<br />
+
+```
+GET /api/analytics/top-campaigns
+```
+
+Returns the highest-performing completed campaigns within a date range, ranked by delivery rate.
+
+### Query parameters
+
+<ParamField query="limit" type="number">
+  Number of campaigns to return. Default `10`.
+</ParamField>
+
+<ParamField query="startDate" type="string (ISO 8601 date)">
+  Start of the date range. Defaults to 30 days ago.
+</ParamField>
+
+<ParamField query="endDate" type="string (ISO 8601 date)">
+  End of the date range. Defaults to now.
+</ParamField>
+
+### Response
+
+```json
+[
+  {
+    "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+    "name": "April Fundraiser Blast",
+    "createdAt": "2025-04-20T13:00:00.000Z",
+    "totalCount": 4200,
+    "sentCount": 4187,
+    "deliveredCount": 4187,
+    "failedCount": 13,
+    "deliveryRate": 99.69
+  }
+]
+```
+
+## Best send times
+
+<br />
+
+```
+GET /api/analytics/best-send-times
+```
+
+Analyzes your historical message delivery data to identify which hours of the day and days of the week have the highest delivery rates. Use this to schedule future campaigns for optimal reach.
+
+### Query parameters
+
+<ParamField query="startDate" type="string (ISO 8601 date)">
+  Start of the analysis window. Defaults to 90 days ago.
+</ParamField>
+
+<ParamField query="endDate" type="string (ISO 8601 date)">
+  End of the analysis window. Defaults to now.
+</ParamField>
+
+### Response
+
+```json
+{
+  "byHour": [
+    { "hour": 9, "totalSent": 12400, "delivered": 12100, "deliveryRate": 97.58 },
+    { "hour": 10, "totalSent": 15200, "delivered": 14800, "deliveryRate": 97.37 }
+  ],
+  "byDayOfWeek": [
+    { "dayOfWeek": 1, "totalSent": 18500, "delivered": 18000, "deliveryRate": 97.30 },
+    { "dayOfWeek": 2, "totalSent": 22100, "delivered": 21500, "deliveryRate": 97.29 }
+  ]
+}
+```
+
+<Note>
+  `byDayOfWeek` uses a 0-indexed week where `0` = Sunday, `1` = Monday, `2` = Tuesday, `3` = Wednesday, `4` = Thursday, `5` = Friday, `6` = Saturday.
+</Note>
+
+## Billing status
+
+<br />
+
+```
+GET /api/billing/status
+```
+
+Returns the current billing status, active subscription details, and credit balance for your organization. Use this to check whether your account is in good standing before sending large campaigns.
+
+### Response
+
+```json
+{
+  "organization_id": "3f4e5c6d-7a8b-9012-cdef-1234567890ab",
+  "brand": "amplifi",
+  "billing_status": "active",
+  "pricing_model": "full_service",
+  "subscription": {
+    "id": "sub_abc123",
+    "plan_type": "full_service",
+    "billing_interval": "monthly",
+    "status": "active",
+    "paid_through": "2025-05-31",
+    "current_period_end": "2025-05-31T23:59:59.000Z",
+    "next_billing_date": "2025-06-01",
+    "provider": "amplifi"
+  },
+  "credits": {
+    "available": 24500,
+    "included": 10000,
+    "total": 34500
+  },
+  "portal_urls": {
+    "customer_portal": null,
+    "subscription_management": null
+  },
+  "available_credit_products": [
+    {
+      "id": "prod_xyz789",
+      "name": "10,000 Credits",
+      "credits_amount": 10000,
+      "price_cents": 4900
+    }
+  ]
+}
+```
+
+### Response fields
+
+<ResponseField name="billing_status" type="string">
+  Current billing health: `active`, `past_due`, `suspended`, `overage_warning`, or `archived`.
+</ResponseField>
+
+<ResponseField name="pricing_model" type="string">
+  How messaging costs are calculated: `unlimited` (subscription-only, no per-message credits), `per_message` (credit balance only), or `full_service` (subscription plus included and purchasable credits).
+</ResponseField>
+
+<ResponseField name="subscription" type="object | null">
+  Active subscription details, or `null` if your account is on a credit-only plan.
+</ResponseField>
+
+<ResponseField name="credits.available" type="number">
+  Purchased credits currently available to spend.
+</ResponseField>
+
+<ResponseField name="credits.included" type="number">
+  Credits included with your subscription this billing period (applies to `full_service` plans only).
+</ResponseField>
+
+<ResponseField name="credits.total" type="number">
+  Total credits available: `available + included`.
+</ResponseField>
+
+<ResponseField name="available_credit_products" type="object[]">
+  Credit top-up products available for purchase, with pricing.
+</ResponseField>
+
+## Credit balance
+
+<br />
+
+```
+GET /api/credits/balance
+```
+
+Returns the current available credit balance for your organization. This is a lightweight alternative to `GET /api/billing/status` when you only need the balance number.
+
+### Response
+
+```json
+{
+  "balance": 24500
+}
+```
+
+<Note>
+  Credits are consumed when messages are successfully dispatched: 1 credit per SMS segment (up to 480 characters), 2 credits per MMS. Longer SMS messages use `ceil(length / 480)` credits. Test sends and sandbox mode do not consume credits.
+</Note>
+
+<Warning>
+  Campaigns fail at queue time if your credit balance is insufficient to cover the estimated send. Check your balance with `GET /api/credits/balance` before scheduling large campaigns.
+</Warning>
+
+## Export analytics
+
+<br />
+
+```
+GET /api/analytics/export
+```
+
+Exports campaign analytics data as a CSV file for use in external reporting tools.
+
+### Query parameters
+
+<ParamField query="type" type="string">
+  Export type. Currently `campaigns` is the only supported value.
+</ParamField>
+
+<ParamField query="startDate" type="string (ISO 8601 date)">
+  Start of the date range. Defaults to 30 days ago.
+</ParamField>
+
+<ParamField query="endDate" type="string (ISO 8601 date)">
+  End of the date range. Defaults to now.
+</ParamField>
+
+### Response
+
+Returns a CSV file attachment with columns: Campaign Name, Status, Total Recipients, Sent, Delivered, Failed, Created At, Completed At.

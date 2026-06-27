@@ -1,0 +1,86 @@
+---
+title: "Billing, credits, and subscription plans"
+description: "Understand how Amplifi credits work, what each subscription plan includes, how to check your balance, and what happens when credits are exhausted."
+sidebarTitle: "Billing & credits"
+---
+
+Amplifi uses a credit-based system to gate outbound messaging. Depending on your plan, you either draw from a credit balance, send under an unlimited subscription, or use a combination of both. Your billing status is enforced directly in the product—when you try to send a campaign, reply in a conversation, or launch a poll, Amplifi checks your account before the message leaves.
+
+## How credits work
+
+Each outbound message consumes credits from your organization's balance. The number of credits deducted depends on the message type and length.
+
+<CardGroup cols={2}>
+  <Card title="SMS" icon="comment-sms">
+    **1 credit** per message segment. A segment is up to 480 characters. Messages longer than 480 characters use multiple segments—for example, a 700-character message costs 2 credits.
+  </Card>
+  <Card title="MMS" icon="image">
+    **2 credits** per message, regardless of length. Any message that includes an image attachment is counted as MMS.
+  </Card>
+</CardGroup>
+
+Credits are checked before a message is sent and deducted after it is delivered successfully. If a send fails, credits are not deducted.
+
+## Subscription plans
+
+Amplifi offers three plan types. Your organization is on one of these at any given time.
+
+<AccordionGroup>
+  <Accordion title="Per-message plan">
+    You pay for a credit balance and draw from it as you send. There is no recurring subscription—your access to outbound messaging depends entirely on having credits available. This plan is best for organizations with variable send volume.
+  </Accordion>
+  <Accordion title="Unlimited plan">
+    An active subscription gives your organization unlimited outbound SMS and MMS without per-message credit deductions. Access is tied to your subscription being active and paid through the current period. There is no credit balance to manage.
+  </Accordion>
+  <Accordion title="Full-service plan">
+    A recurring subscription plus a credit balance. Your subscription includes a set number of credits each billing cycle, and you can purchase additional credits on top. This plan is common for organizations that send at high volume but also need flexibility for burst sends.
+  </Accordion>
+</AccordionGroup>
+
+## Checking your credit balance
+
+Your current credit balance and subscription status are visible in **Settings**.
+
+<Steps>
+  <Step title="Open Settings">
+    Click **Settings** in the left sidebar.
+  </Step>
+  <Step title="Go to the Billing tab">
+    Select the **Billing** tab at the top of the Settings page.
+  </Step>
+  <Step title="Review your balance">
+    Your credit balance and subscription status are shown here. On a full-service plan, you will see both your included cycle credits and any purchased credits.
+  </Step>
+</Steps>
+
+<Note>
+  Credits purchased as part of a one-time credit pack typically carry a six-month expiry. Included subscription credits reset each billing cycle. If you are unsure when your credits expire, contact your account team.
+</Note>
+
+## What happens when credits run out
+
+If your organization runs out of credits—or if your subscription lapses—outbound messaging is blocked.
+
+When this happens:
+
+- Campaign sends are blocked before they start
+- Replies in the Conversations inbox are blocked
+- You see an **insufficient credits** or **inactive billing** message in the product
+
+No partial sends occur. Amplifi blocks the send entirely rather than sending to part of your audience and stopping mid-campaign.
+
+<Warning>
+  If your account is past due or suspended, messaging is blocked even if credits remain in your balance. Contact support to restore access.
+</Warning>
+
+## Who manages billing
+
+The **billing contact** role controls billing and team membership for your organization. If you are not the billing contact, you can view your credit balance in Settings but cannot purchase credits or change subscription details.
+
+<Tip>
+  If you need to add credits or update your plan and you are not the billing contact, ask your billing contact or reach out to the Amplifi team directly.
+</Tip>
+
+## Getting more credits
+
+To purchase additional credits or change your plan, contact the Amplifi team. A billing contact on your account can initiate this, and the team will walk you through the options available for your organization.

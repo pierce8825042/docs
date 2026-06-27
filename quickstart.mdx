@@ -1,0 +1,92 @@
+---
+title: "Get started with Amplifi in minutes"
+description: "Set up your organization, import your first contacts, compose a campaign, and send a test message — everything you need before your first send."
+sidebarTitle: "Quickstart"
+---
+
+This guide walks you through everything you need to do before sending your first message. By the end, you'll have your organization configured, a set of contacts imported, and a campaign ready to send. Each step takes only a few minutes.
+
+<Steps>
+  <Step title="Log in and confirm your organization">
+    When you first log in, Amplifi places you inside your organization — the workspace that holds all your contacts, campaigns, and settings. Check the organization name displayed in the left sidebar to confirm you're in the right place.
+
+    If you have access to more than one organization, you can switch between them from the sidebar. Make sure you're working in the correct one before making any changes.
+
+    <Tip>
+      Not sure which organization you should be in? Contact your billing contact or account administrator. They can confirm which workspace is set up for your team.
+    </Tip>
+  </Step>
+
+  <Step title="Set your organization timezone">
+    Your organization's timezone controls when scheduled campaigns and polls go out, how timestamps display throughout the app, and when quiet-hours restrictions apply. Setting it correctly before your first send matters.
+
+    To set your timezone:
+
+    1. Click **Settings** in the left sidebar.
+    2. Open the **General** tab.
+    3. Find the **Organization timezone** field and select your timezone.
+    4. Save your changes.
+
+    <Warning>
+      Amplifi enforces quiet hours based on your organization timezone. If your timezone is wrong, scheduled sends and quiet-hours enforcement will be off. Set it before you create any campaigns.
+    </Warning>
+  </Step>
+
+  <Step title="Import your contacts">
+    Contacts are the people you'll message. Amplifi supports importing from a CSV file, an Excel file, or pasted tabular data — so you can usually import directly from whatever list you already have.
+
+    To import a CSV:
+
+    1. Click **Contacts** in the left sidebar.
+    2. Click the **Import** button.
+    3. Upload your CSV file and review the parsed preview.
+    4. Give the import a name so you can find it later in Import History.
+    5. Optionally apply tags to every contact in this import (useful for filtering later).
+    6. Map each column in your file to the corresponding Amplifi field — phone number, first name, last name, and any custom fields you need.
+    7. Click **Submit** to start the import.
+
+    Imports run in the background. You can track progress anytime by going to **Settings → Import History**, which shows how many rows were added, updated, or had errors.
+
+    <Info>
+      Amplifi auto-detects common column names like "Phone", "First Name", and "Last Name" during field mapping, so you usually won't need to map every column manually.
+    </Info>
+  </Step>
+
+  <Step title="Create your first campaign draft">
+    With contacts imported, you're ready to compose a message. Campaigns autosave as you go, so you can build your draft over multiple sessions without losing work.
+
+    To create a campaign:
+
+    1. Click **Campaigns** in the left sidebar, then click **New Campaign**.
+    2. Give your campaign a name (this is internal — contacts won't see it).
+    3. Write your message in the body field. Use merge fields like `{{firstName}}` to personalize by contact.
+    4. Choose your audience: select a saved segment or filter by tags.
+    5. Review the targeting stats — Amplifi shows you how many contacts are SMS-eligible before you send.
+    6. Choose whether to **send now** or **schedule** for a specific date and time.
+
+    <Tip>
+      Keep your first campaign short and simple. A brief, clear message is easier to test and troubleshoot than a long one.
+    </Tip>
+  </Step>
+
+  <Step title="Send a test message">
+    Before launching to your full audience, send the exact message to yourself or a small group of teammates. This confirms the message body, merge fields, and any links look right on a real device.
+
+    To send a test:
+
+    1. From the campaign composer, click **Send Test**.
+    2. Enter up to 5 phone numbers to receive the test.
+    3. Click **Send Test Message**.
+
+    Test sends do not count against your audience or credits. Once the test looks right, go back and launch or schedule the campaign.
+  </Step>
+</Steps>
+
+## What's next
+
+Once your first campaign is live, here are the logical next steps:
+
+- **Review campaign analytics** — Open the campaign detail view to see delivery rates, replies, and link clicks as they come in.
+- **Build segments** — Go to **Contacts** and save filtered audiences as segments so you can reuse them across future campaigns and polls.
+- **Try a poll** — Go to **Polls** to run your first text-message survey with branching questions and trackable results.
+- **Check your inbox** — Go to **Conversations** to read and reply to any incoming responses from your campaign.

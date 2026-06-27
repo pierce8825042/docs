@@ -1,0 +1,88 @@
+---
+title: "Campaign analytics: delivery, replies, and link clicks"
+description: "Review delivery rates, reply rates, link click attribution, per-message logs, and A/B test results from the campaign detail page after your campaign sends."
+sidebarTitle: "Analytics"
+---
+
+After a campaign sends, the campaign detail page gives you a full picture of how it performed. You can see aggregate metrics like delivery and reply rates, dig into per-message logs to troubleshoot individual failures, track which contacts clicked your link, and export everything to CSV for reporting. For A/B test campaigns, variant performance appears side by side so you can make a data-driven decision.
+
+## Summary metrics
+
+The top of the campaign detail page shows a summary of overall campaign performance:
+
+| Metric | What it tells you |
+|---|---|
+| **Sent** | Total messages successfully handed off for delivery |
+| **Delivered** | Messages confirmed delivered by the carrier |
+| **Delivery rate** | Delivered ÷ Sent, as a percentage |
+| **Replies** | Inbound messages received from campaign recipients |
+| **Reply rate** | Replies ÷ Sent, as a percentage |
+| **Link clicks** | Total clicks on your tracked short link |
+| **Unique link clicks** | Distinct contacts who clicked at least once |
+| **Link click rate** | Unique clicks ÷ Sent, as a percentage |
+| **Failed** | Messages that could not be delivered |
+
+<Note>
+  Delivery status updates in real time as carrier confirmations come in. Metrics continue to update for some time after the campaign finishes sending, so check back after a few hours for final numbers on larger sends.
+</Note>
+
+## Message logs
+
+The message log shows one row per recipient with individual status and timing information. Use it to investigate delivery problems or look up a specific contact's send outcome.
+
+Each log entry includes:
+
+- **Contact** — name and phone number of the recipient
+- **Status** — the current delivery state for that message (`sent`, `delivered`, `failed`, etc.)
+- **Sent at** — timestamp when the message was handed off to the carrier
+- **Delivered at** — timestamp when delivery was confirmed (if applicable)
+- **Error** — error code and description for failed messages
+
+<Tip>
+  If you see a high failure rate, look at the error codes in the message log. Common issues include invalid phone numbers and carrier rejections. Failed messages can be retried from the campaign detail page, subject to quiet-hours restrictions.
+</Tip>
+
+## Real-time updates
+
+Campaign metrics and message log statuses update automatically as the send progresses. You don't need to refresh the page — the delivery count, reply count, and individual message statuses update as new information arrives from the carrier.
+
+This is especially useful for large campaigns that take time to complete. You can monitor progress live and spot issues early.
+
+## Replies
+
+The **Replies** tab on the campaign detail page shows inbound messages from contacts who responded to your campaign. Each reply includes the contact name, their message, and the time it was received.
+
+You can open a contact's full conversation thread directly from the reply list to continue the exchange in the **Conversations** inbox.
+
+## Link click attribution
+
+If you included a tracked short link in your campaign, the **Link metrics** section shows:
+
+- Total click count across all recipients
+- Unique click count (one per contact, regardless of how many times they tapped)
+- A per-contact breakdown of who clicked and when
+
+Per-contact attribution means you can identify which specific contacts engaged with your link — useful for follow-up targeting, building segments of engaged contacts, or confirming that key audiences took action.
+
+## A/B test results
+
+For campaigns that used A/B testing, the detail page includes a dedicated A/B test section. Variant A and Variant B metrics appear side by side:
+
+<CardGroup cols={2}>
+  <Card title="Variant A" icon="a">
+    Sent count, delivery rate, reply rate, and link click rate for the first variant.
+  </Card>
+  <Card title="Variant B" icon="b">
+    Sent count, delivery rate, reply rate, and link click rate for the second variant.
+  </Card>
+</CardGroup>
+
+Use these metrics to select the winning variant and send it to the remaining 90% of your audience. See [A/B testing](/campaigns/ab-testing) for the full workflow.
+
+## Exporting results
+
+To export campaign results as a CSV file, use the **Export** option on the campaign detail page. The export includes per-message data: recipient contact information, message status, timestamps, and error details where applicable.
+
+<Info>
+  Exports are generated from the current state of the campaign. If you export immediately after a send, some delivery statuses may still be updating. For a complete picture, wait a few hours and export again.
+</Info>

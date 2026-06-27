@@ -1,0 +1,106 @@
+---
+title: "Manage and organize your contacts in Amplifi"
+description: "Learn how to view, search, filter, and manage your contact list—including tags, custom fields, opt-out status, textability, and bulk actions."
+sidebarTitle: "Overview"
+---
+
+Contacts are the foundation of everything you do in Amplifi. Every person you message lives in your contact list, complete with their profile information, activity history, and messaging status. Understanding how to navigate, search, and act on your contacts helps you reach the right people more efficiently and keep your list in good shape.
+
+## What's stored on a contact
+
+Each contact record can include:
+
+<CardGroup cols={2}>
+  <Card title="Core fields" icon="user">
+    Phone number, first name, last name, email address, and address fields (street, city, state, ZIP).
+  </Card>
+  <Card title="Tags" icon="tag">
+    Labels you apply manually or during import to organize contacts into groups.
+  </Card>
+  <Card title="Custom fields" icon="sliders">
+    Any additional data your organization tracks—created in your account and mapped during imports.
+  </Card>
+  <Card title="Timeline and history" icon="clock">
+    A record of campaigns received, poll participation, inbound replies, and notes your team has added.
+  </Card>
+  <Card title="Textability" icon="signal">
+    Whether the phone number has been verified as capable of receiving text messages.
+  </Card>
+  <Card title="Opt-out status" icon="ban">
+    Whether the contact has replied STOP or been marked as opted out, which suppresses future sends.
+  </Card>
+</CardGroup>
+
+## Viewing your contact list
+
+Open **Contacts** from the left sidebar to see your full list. By default, contacts are displayed in a table with their name, phone number, tags, and status at a glance.
+
+Use the **search bar** at the top to find contacts by name, phone number, or email. For more targeted lookups, use the **filter panel** to narrow the list by any combination of the criteria below.
+
+### Filter options
+
+You can filter your contact list by:
+
+- **Tags** — one or more labels applied to contacts
+- **Textability** — verified textable, non-textable, or unknown
+- **Opt-out status** — opted in or opted out
+- **Phone or email presence** — contacts with or without a phone number or email on file
+- **State or ZIP** — geographic filters for location-based targeting
+- **Import name** — contacts added during a specific import batch
+- **Custom fields** — any custom field your organization has created
+- **Created or updated date** — contacts added or modified within a date range
+- **Last contacted** — how recently you last sent them a message
+- **Starred status** — contacts you've manually starred
+- **Inbound activity** — contacts who have replied to a message
+- **Archived status** — view or hide archived contacts
+
+Filters can be combined freely. When you find a combination you'll reuse, save it as a **segment** for quick access in future campaigns and polls. See [Segments](/contacts/segments) for details.
+
+## The contact detail page
+
+Click any contact to open their full profile. This is where you can view everything Amplifi knows about that person and take actions directly from their record.
+
+The detail page is organized into several areas:
+
+<AccordionGroup>
+  <Accordion title="Contact information">
+    View and edit the contact's phone number, name, email, address, tags, and custom fields. Changes save immediately.
+  </Accordion>
+  <Accordion title="Timeline and activity feed">
+    A chronological log of every interaction with the contact—campaigns they were included in, poll responses, inbound replies, and any notes your team has added. If your organization has quick-reply snippets configured, you can send a reply directly from this view.
+  </Accordion>
+  <Accordion title="SMS history">
+    A focused view of every message sent to and received from this contact, including timestamps and delivery status.
+  </Accordion>
+  <Accordion title="Notes">
+    Free-text notes your team can add to a contact record. Useful for tracking context that doesn't fit a structured field.
+  </Accordion>
+</AccordionGroup>
+
+## Bulk actions
+
+When you need to act on multiple contacts at once, select them using the checkboxes in the contact list. Available bulk actions include:
+
+- **Add or remove tags** — apply or strip labels across all selected contacts at once
+- **Export** — download selected contacts as a CSV file
+- **Delete** — permanently remove selected contacts from your account
+
+<Warning>
+Deleting contacts is permanent. Export a backup before deleting if you may need the data later.
+</Warning>
+
+## Textability and opt-out status
+
+Two contact statuses affect whether Amplifi will attempt to send a message to someone:
+
+**Textability** reflects whether the phone number is capable of receiving SMS. During import you can choose to run textability verification, which checks each number and categorizes it as textable, non-textable, or unknown. Sending to non-textable numbers wastes credits and inflates your failure rate, so keeping your list verified is worthwhile.
+
+**Opt-out status** is a compliance flag. When a contact replies STOP, UNSUBSCRIBE, or a recognized opt-out keyword, Amplifi automatically marks them as opted out and suppresses all future outbound messages to that number. You can also manually mark a contact as opted out from their profile or from a conversation thread.
+
+<Note>
+Opted-out contacts are never sent campaign or poll messages, even if they match the target segment or filter. This suppression is automatic and cannot be bypassed at send time.
+</Note>
+
+<Tip>
+Use the **Textable** segment—automatically maintained by Amplifi—as a quick starting point when building campaigns. It filters to contacts who are verified textable and not opted out.
+</Tip>

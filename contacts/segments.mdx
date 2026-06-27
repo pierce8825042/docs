@@ -1,0 +1,107 @@
+---
+title: "Build saved audience segments in Amplifi"
+description: "Create reusable contact segments from filters, preview audience counts, and use segments to target campaigns and polls with precision."
+sidebarTitle: "Segments"
+---
+
+Segments let you define an audience once and reuse it across every campaign and poll you send. Instead of rebuilding the same filter combination each time, you save it as a named segment and select it at send time. Your segments also stay current automatically—when contacts are added or updated, Amplifi recalculates who qualifies.
+
+## Segments vs. tags vs. filters
+
+These three tools work differently, and using the right one for the right job matters:
+
+| | Tags | Segments | Filters |
+|---|---|---|---|
+| **What it is** | A label stored on a contact | A saved audience built from rules | A temporary targeting rule |
+| **Persists?** | Yes, on the contact record | Yes, as a named audience | No, discarded after use |
+| **Based on** | Manual assignment or import | Filter logic you define | Filter logic applied once |
+| **Use for** | Categorizing contacts | Recurring audience targeting | One-time sends or exploration |
+
+A common pattern: apply tags during import to mark list origin, then build a segment that combines those tags with additional rules like textability or geography.
+
+## The default "Textable" segment
+
+Amplifi automatically maintains a segment called **Textable**. It includes every contact who is verified textable and not opted out. If you're not sure which segment to use when setting up a campaign, starting with Textable ensures your message only goes to people who can receive it.
+
+<Note>
+The Textable segment is managed by Amplifi and cannot be deleted. You can use it as a starting point for custom segments by referencing similar filter logic in a segment you create yourself.
+</Note>
+
+## Creating a segment
+
+<Steps>
+  <Step title="Open the Segments panel">
+    From the **Contacts** area, find the Segments section. Select the option to create a new segment.
+  </Step>
+  <Step title="Name your segment">
+    Give it a clear, descriptive name—something that communicates who's in it, such as "NYC donors" or "Verified textable, tagged event-2026."
+  </Step>
+  <Step title="Add filters">
+    Build your audience by combining one or more filters. You can add as many conditions as you need. See the full filter reference below.
+  </Step>
+  <Step title="Preview the count">
+    Before saving, Amplifi shows an approximate count of how many contacts currently match your filters. Use this to confirm your targeting looks right.
+  </Step>
+  <Step title="Save the segment">
+    Save the segment. It's now available to select when composing a campaign or setting up a poll.
+  </Step>
+</Steps>
+
+## Filter options
+
+Segments support a broad set of filter conditions:
+
+<AccordionGroup>
+  <Accordion title="Tags">
+    Include contacts who have one or more specific tags. You can require all tags to match or any one of them.
+  </Accordion>
+  <Accordion title="Textability">
+    Filter by verified textable, non-textable, or unknown textability status.
+  </Accordion>
+  <Accordion title="Opt-out status">
+    Include or exclude contacts who have opted out.
+  </Accordion>
+  <Accordion title="Phone or email presence">
+    Filter for contacts who have a phone number on file, an email on file, or neither.
+  </Accordion>
+  <Accordion title="State, city, or ZIP">
+    Target contacts in a specific geographic area. You can combine multiple states or ZIP codes.
+  </Accordion>
+  <Accordion title="Custom fields">
+    Filter on any custom field your organization has created—whether it stores text, a number, or a date.
+  </Accordion>
+  <Accordion title="Created or updated date">
+    Target contacts added or modified within a specific date window. Useful for reaching new imports or recently updated records.
+  </Accordion>
+  <Accordion title="Last contacted">
+    Filter by how recently a contact last received a message from your organization. Useful for re-engagement targeting or suppressing people you've contacted recently.
+  </Accordion>
+  <Accordion title="Starred status">
+    Include only contacts your team has manually starred.
+  </Accordion>
+  <Accordion title="Inbound activity">
+    Target contacts who have replied to at least one message—a useful signal for engagement-based follow-up.
+  </Accordion>
+  <Accordion title="Import name">
+    Include contacts added during a specific import batch. Lets you target an entire list by its import name without needing to tag everyone individually.
+  </Accordion>
+  <Accordion title="Search terms">
+    Filter by name, phone, or other text-based fields for keyword-based matching.
+  </Accordion>
+</AccordionGroup>
+
+## Editing a segment
+
+Open any saved segment and update its filters at any time. The change applies the next time the segment's count is calculated or the segment is used in a campaign or poll. Editing a segment does not affect campaigns that have already been sent.
+
+## Using segments in campaigns and polls
+
+When you compose a campaign or set up a poll, you choose your audience during the targeting step. Select **Saved segment** and pick the segment you want to reach. Amplifi shows you targeting stats—total matching contacts, SMS-eligible contacts, non-textable contacts, and contacts with unknown textability—so you can confirm the audience size before sending.
+
+<Tip>
+If you need to target a slightly different audience for a single send, you can use an ad hoc filter instead of creating a permanent segment. Ad hoc filters are applied at send time and not saved.
+</Tip>
+
+<Info>
+Campaign and poll targeting stats refresh when you make your audience selection. If you've imported new contacts recently, the counts will reflect those additions.
+</Info>

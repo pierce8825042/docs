@@ -1,0 +1,86 @@
+---
+title: "Compliance: opt-outs, quiet hours, and TCPA"
+description: "Understand how Amplifi handles opt-outs, enforces quiet hours, checks textability, and suppresses contacts to support your TCPA compliance obligations."
+sidebarTitle: "Compliance"
+---
+
+Amplifi includes several built-in features that help you send responsibly: automatic opt-out handling, quiet hours enforcement, phone number textability checks, and Do Not Disturb suppression. These features reduce the risk of messaging contacts who shouldn't receive texts and help you stay within acceptable sending windows.
+
+<Warning>
+Amplifi provides tools that support compliance, but you are responsible for your own TCPA compliance. This includes obtaining proper consent before texting, honoring opt-outs promptly, and following all applicable federal and state regulations. Nothing in this document constitutes legal advice.
+</Warning>
+
+## Opt-out handling
+
+When a contact replies **STOP** or **UNSUBSCRIBE** to any message sent through Amplifi, the platform automatically marks that contact as opted out. Opted-out contacts are suppressed from all future campaign and poll sends.
+
+### How opt-outs are triggered
+
+Opt-outs are processed automatically when an inbound reply containing STOP or UNSUBSCRIBE is received. No manual action is required.
+
+You can also manually opt a contact out from their contact record or directly from the Conversations inbox.
+
+### Where to see opted-out contacts
+
+Opted-out contacts remain in your contact list but are flagged with their opt-out status. You can filter your contact list by opt-out status to see who has opted out and when.
+
+### Re-opt-ins
+
+If an opted-out contact later provides consent and you need to re-enable messaging, you can update their opt-out status manually on their contact record. Make sure you have documented consent before doing so.
+
+<Warning>
+Re-enabling a contact who has opted out without obtaining fresh, documented consent may violate TCPA. Consult your legal counsel before manually updating opt-out status.
+</Warning>
+
+## Quiet hours
+
+Amplifi restricts message delivery to between **8 AM and 9 PM** in the recipient's local timezone. Messages outside this window are not sent immediately—they are held and delivered when the window opens.
+
+<Note>
+Quiet hours are enforced automatically by the platform for all outbound campaigns and polls. You do not need to configure them. They apply to every send, including scheduled campaigns and automated messages.
+</Note>
+
+### How quiet hours affect scheduling
+
+If you schedule a campaign to go out during quiet hours—for example, at midnight—Amplifi holds the messages and begins delivery at 8 AM in the recipient's local timezone. The campaign will show as scheduled until the window opens.
+
+Campaigns with large audiences (10,000 or more recipients) cannot be launched immediately after 7 PM local time to avoid messages queuing near the quiet hours cutoff.
+
+### Timezone resolution
+
+Quiet hours are evaluated against your organization's timezone setting. You can review and update this in **Settings → General**.
+
+<Tip>
+Set your organization timezone to match your primary audience's location. If you message across multiple timezones, keep in mind that the org-level timezone is used as the reference point.
+</Tip>
+
+## Textability checks
+
+Before sending, Amplifi checks whether a phone number is textable—meaning it's a valid mobile number capable of receiving SMS. Numbers that fail this check are excluded from sends automatically. Textability results are cached for 30 days to avoid repeated lookups.
+
+You can see textability status on each contact record and use it as a filter when building segments or targeting campaigns.
+
+<Info>
+Textability filtering helps you avoid wasted sends to landlines or invalid numbers, but it is not a guarantee of delivery. Carrier-level delivery is always subject to factors outside Amplifi's control.
+</Info>
+
+## Do Not Disturb (DND) suppression
+
+Contacts flagged as Do Not Disturb are suppressed from outbound sends alongside opted-out contacts. DND status can be set manually on a contact record or updated via import.
+
+## Compliance features summary
+
+<CardGroup cols={2}>
+  <Card title="Opt-out handling" icon="ban">
+    STOP and UNSUBSCRIBE replies automatically suppress contacts from future sends.
+  </Card>
+  <Card title="Quiet hours" icon="moon">
+    Messages are only delivered between 8 AM and 9 PM in the recipient's local timezone.
+  </Card>
+  <Card title="Textability checks" icon="mobile">
+    Phone numbers are verified as mobile-capable before sending, with results cached for 30 days.
+  </Card>
+  <Card title="DND suppression" icon="volume-xmark">
+    Contacts marked Do Not Disturb are excluded from all outbound campaign and poll sends.
+  </Card>
+</CardGroup>

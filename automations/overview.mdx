@@ -1,0 +1,113 @@
+---
+title: "Automate follow-ups with triggers and actions"
+description: "Build trigger-based workflows in Amplifi to send messages, update contacts, and move people between segments — automatically, without manual effort."
+sidebarTitle: "Overview"
+---
+
+Automations let you define what happens when something occurs in Amplifi — a contact replies to your number, clicks a link, gets added to a segment, or completes a campaign. Instead of following up manually each time, you set the trigger once and configure the actions that should run automatically. Automations are a powerful addition to your outreach toolkit, best used once your core campaign and messaging workflows are running smoothly.
+
+<Note>
+Automations are real and fully usable, but they are workflow automation tools — not the most polished surface in Amplifi. Campaigns, Polls, and the Conversations inbox are more refined day-to-day experiences. Start with those before building automation flows.
+</Note>
+
+## Available triggers
+
+A trigger is the event that starts an automation. Each workflow begins with exactly one trigger.
+
+<CardGroup cols={2}>
+  <Card title="SMS received" icon="message-arrow-down">
+    Fires when a contact texts your number. Use this to auto-reply when someone reaches out.
+  </Card>
+  <Card title="Link clicked" icon="cursor-arrow-rays">
+    Fires when a contact clicks a tracked short link from one of your campaigns.
+  </Card>
+  <Card title="Contact created" icon="user-plus">
+    Fires when a new contact is added to your organization, whether by import or manually.
+  </Card>
+  <Card title="Contact tagged" icon="tag">
+    Fires when a specific tag is applied to a contact.
+  </Card>
+  <Card title="Added to segment" icon="users">
+    Fires when a contact enters a saved segment.
+  </Card>
+  <Card title="Campaign completed" icon="circle-check">
+    Fires when a specific campaign finishes sending.
+  </Card>
+  <Card title="Scheduled trigger" icon="clock">
+    Fires at a date and time you choose. Useful for time-based follow-up sequences.
+  </Card>
+</CardGroup>
+
+## Available actions
+
+Actions are what your automation does after the trigger fires. You can chain multiple actions in a single workflow.
+
+| Action | What it does |
+|---|---|
+| **Send SMS** | Sends a text message to the contact |
+| **Send MMS** | Sends a text message with an image attachment |
+| **Add tag** | Applies a tag to the contact |
+| **Remove tag** | Removes a tag from the contact |
+| **Add to segment** | Places the contact in a saved segment |
+| **Remove from segment** | Removes the contact from a saved segment |
+| **Update contact field** | Sets a value on a standard or custom contact field |
+| **Send webhook** | Posts contact and event data to an external URL |
+| **Wait** | Pauses the workflow for a specified time before the next action runs |
+| **Conditional branch** | Splits the workflow based on a condition — if/else logic |
+
+## Building your first automation
+
+<Steps>
+  <Step title="Go to Automations">
+    Navigate to `/automations` from the sidebar or your browser. The automation builder is a visual canvas where you connect triggers and actions.
+  </Step>
+  <Step title="Create a new workflow">
+    Click **New Automation** (or equivalent create button). Give your workflow a name that describes what it does — for example, "Auto-reply on inbound text."
+  </Step>
+  <Step title="Choose a trigger">
+    Select the event that should start your workflow. For a simple auto-reply, choose **SMS received**.
+  </Step>
+  <Step title="Add actions">
+    Click the **+** on the canvas to add the first action. Choose **Send SMS** and compose the message you want to send back. Add additional actions as needed — for example, an **Add tag** action after the send to mark that the contact has been followed up with.
+  </Step>
+  <Step title="Add wait or branching steps (optional)">
+    If you want a delayed second message, add a **Wait** step between two Send SMS actions. To send different messages depending on a contact's data, add a **Conditional branch** step.
+  </Step>
+  <Step title="Activate the workflow">
+    When you're satisfied with the flow, toggle the workflow to **Active**. You can pause or deactivate it at any time without deleting it.
+  </Step>
+</Steps>
+
+<Tip>
+A reliable starter automation: use the **SMS received** trigger, follow it with a **Send SMS** action to acknowledge the reply, then add an **Add tag** action to label the contact (for example, "Replied"). This gives you an instant touchpoint and a way to build a segment of responsive contacts for future campaigns.
+</Tip>
+
+## Managing your automations
+
+Once created, each workflow appears in your automations list. From there you can:
+
+- **Activate or pause** a workflow without deleting it
+- **Edit** the trigger or any action
+- **Delete** a workflow you no longer need
+
+<AccordionGroup>
+  <Accordion title="Can an automation send MMS messages?">
+    Yes. The **Send MMS** action lets you attach a supported image to an automated message, the same way you would attach an image in a campaign or inbox reply.
+  </Accordion>
+  <Accordion title="Are automated sends subject to quiet hours?">
+    Automated outbound messages follow the same sending rules as campaigns. Quiet hours enforced at the organization level apply to automation-triggered sends.
+  </Accordion>
+  <Accordion title="What does the Wait action do exactly?">
+    The Wait action pauses the workflow for a duration you set — minutes, hours, or days — before proceeding to the next action. Use it to space out a multi-step follow-up sequence rather than sending everything at once.
+  </Accordion>
+  <Accordion title="How does conditional branching work?">
+    A conditional branch evaluates a condition about the contact — such as whether they have a specific tag or field value — and routes them down one of two paths: the "if true" branch or the "else" branch. Each branch can have its own set of actions.
+  </Accordion>
+  <Accordion title="Can I trigger automations from campaigns?">
+    Yes. The **Campaign completed** trigger fires when a specific campaign finishes sending, which lets you chain follow-up actions to any campaign outcome.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+Automations consume credits for each message sent, the same as a manual reply or campaign send. Make sure your account has sufficient credit balance before activating high-volume workflows.
+</Warning>

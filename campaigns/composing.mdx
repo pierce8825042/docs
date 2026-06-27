@@ -1,0 +1,101 @@
+---
+title: "Compose an SMS or MMS campaign with merge fields"
+description: "Step-by-step guide to building a campaign in Amplifi: pick your audience, write your message, personalize with merge fields, and test before sending."
+sidebarTitle: "Composing"
+---
+
+Before you send a campaign, you build it in the campaign composer — a single screen where you choose who receives your message, write what it says, and decide how it looks. Amplifi autosaves your work throughout, so you can step away and come back without losing anything. Once you're happy with the message, you can send a test to yourself before launching.
+
+## Create a campaign
+
+Navigate to **Campaigns** in the left sidebar and click **Create Campaign**, or use the direct `/compose` route.
+
+<Steps>
+  <Step title="Name your campaign">
+    Give the campaign an internal name so you can find it later. This name is never sent to contacts.
+  </Step>
+
+  <Step title="Choose your audience">
+    Select who receives this campaign. You have two options:
+
+    - **Saved segment** — pick a segment you've already built from your contacts. Segments update dynamically based on their filter rules.
+    - **Tag filter** — build a one-time audience by filtering contacts based on one or more tags.
+
+    After selecting an audience, Amplifi shows you targeting counts: total matching contacts, SMS-eligible contacts, non-textable contacts, and contacts with unknown textability. Focus on the SMS-eligible count — those are the contacts who will actually receive your message.
+
+    <Tip>
+      If the SMS-eligible count is lower than you expect, check your contacts for opt-out status and textability. Go to **Contacts** and apply the same filter to investigate.
+    </Tip>
+  </Step>
+
+  <Step title="Write your message">
+    Type your message in the body field. As you write, the character counter shows how long your message is and how many SMS segments it uses.
+
+    SMS messages use 1 credit per 480 characters (rounded up). If you're sending MMS, the credit cost is 2 per message regardless of length.
+
+    <Note>
+      Standard SMS character limits still apply at the carrier level. Long messages are split into segments that reassemble on the recipient's device, but very long messages may display differently on some phones.
+    </Note>
+  </Step>
+
+  <Step title="Insert merge fields">
+    Click the **merge field** button (or type `{{` directly in the message body) to personalize your message with contact data. If a contact's field is blank, the merge field is replaced with an empty string.
+
+    **Available merge fields:**
+
+    | Merge field | What it inserts |
+    |---|---|
+    | `{{firstName}}` | Contact's first name |
+    | `{{lastName}}` | Contact's last name |
+    | `{{email}}` | Contact's email address |
+    | `{{phone}}` | Contact's phone number |
+    | `{{city}}` | Contact's city |
+    | `{{state}}` | Contact's state |
+    | `{{zip}}` | Contact's ZIP code |
+    | `{{customFieldName}}` | Any custom field you've defined |
+
+    <Tip>
+      Use a fallback strategy in your message copy for important fields. For example: *"Hi {{firstName}}, ..."* works great when names are present, but consider whether a generic opener makes sense if some contacts have no first name on file.
+    </Tip>
+  </Step>
+
+  <Step title="Add an image (MMS only)">
+    To send an MMS message, upload an image using the image attachment option. Supported formats include JPEG, PNG, and GIF. Once an image is attached, the campaign automatically becomes an MMS send.
+
+    <Info>
+      MMS messages cost 2 credits per recipient instead of the standard SMS rate. Make sure your credit balance can cover the full audience before launching.
+    </Info>
+  </Step>
+
+  <Step title="Add a tracked short link (optional)">
+    To include a link in your message, use the short link tool in the composer. Amplifi shortens the URL and tracks every click, including which contact clicked and when.
+
+    Paste your destination URL into the short link field and insert the generated short link into your message body. When contacts tap the link, their click is recorded and attributed to them individually — visible later in campaign analytics.
+
+    <Note>
+      Only links created through the short link tool are tracked. Pasting a full URL directly into the message body will send it as plain text without click tracking.
+    </Note>
+  </Step>
+
+  <Step title="Send a test message">
+    Before launching, send the exact campaign message to up to 5 test recipients. Test recipients receive the real message, with merge fields applied using your own contact record if available.
+
+    Enter phone numbers in the test send field and click **Send Test**. Verify that merge fields resolve correctly, the formatting looks right, and any link works as expected.
+  </Step>
+
+  <Step title="Schedule or send">
+    When you're ready, choose to **Send Now** or **Schedule** for a future date and time. See [Schedule a campaign](/campaigns/scheduling) for details on timing, timezone behavior, and quiet hours.
+  </Step>
+</Steps>
+
+## Drafts and autosave
+
+Amplifi saves your campaign automatically as you work. If you close the composer or navigate away, your draft is preserved. Return to **Campaigns**, filter for drafts, and click your campaign to resume.
+
+You can also **duplicate** any existing campaign — draft or sent — to reuse its message and audience settings as a starting point.
+
+## Duplicate-send protection
+
+<Warning>
+  When you launch a campaign, Amplifi checks whether the same audience was already sent or scheduled a campaign that day. If a potential duplicate is detected, you'll see a warning before the campaign goes out. Review the warning carefully — you can still proceed, but the check is there to prevent accidental double-sends to the same contacts.
+</Warning>

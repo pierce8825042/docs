@@ -1,0 +1,80 @@
+---
+title: "Webhooks for receiving data from external systems"
+description: "Push contact data into Amplifi from a CRM, form builder, or any external system using incoming webhooks, with no manual import required each time."
+sidebarTitle: "Webhooks"
+---
+
+Webhooks let external systems send contact data directly to Amplifi without requiring a manual import. When someone fills out a form, gets added to your CRM, or triggers an event in another tool, that system can push the contact information to Amplifi automatically. Amplifi creates a new contact or updates an existing one based on what it receives.
+
+## What you can do with incoming webhooks
+
+<CardGroup cols={2}>
+  <Card title="Push new contacts" icon="user-plus">
+    Send contact records from a CRM, landing page form, or registration tool directly into your Amplifi contact list.
+  </Card>
+  <Card title="Update existing contacts" icon="pen-to-square">
+    Keep contact data in sync—when a record changes in your source system, push the update to Amplifi so your audience stays current.
+  </Card>
+  <Card title="Apply tags automatically" icon="tag">
+    Include tags in the webhook payload to segment incoming contacts as soon as they arrive.
+  </Card>
+  <Card title="Trigger automations" icon="bolt">
+    Contacts added via webhook can trigger automation workflows the same as contacts added any other way.
+  </Card>
+</CardGroup>
+
+## What data you can send
+
+A webhook payload can include any of the standard contact fields Amplifi supports:
+
+- Phone number
+- First and last name
+- Email address
+- Address fields (city, state, ZIP)
+- Tags
+- Custom fields
+
+The phone number field is required. Amplifi uses it to identify whether to create a new contact or update an existing one.
+
+## Authentication and security
+
+Each webhook endpoint is secured with a shared secret. When your external system sends a request to the webhook URL, it signs the payload using the secret, and Amplifi verifies the signature before processing the data. This ensures that only authorized systems can push contact records into your account.
+
+<Warning>
+Keep your webhook secret confidential. If you believe it has been exposed, contact support to rotate it. Anyone with the secret can push data into your contact list.
+</Warning>
+
+Your webhook credentials—the endpoint URL and secret—are available in your organization settings. Pass the secret to your external system so it can sign outgoing requests.
+
+## Setting up an incoming webhook
+
+<Steps>
+  <Step title="Get your webhook URL and secret">
+    In Amplifi, go to **Settings** and find the **Webhooks** section. Copy the incoming webhook URL and the associated secret for your organization.
+  </Step>
+  <Step title="Configure your external system">
+    In your CRM, form tool, or other platform, add the Amplifi webhook URL as a destination for contact data. Provide the secret so the external system can sign its requests.
+  </Step>
+  <Step title="Map your fields">
+    Make sure your external system sends field names that match Amplifi's expected format. Phone number is required; all other fields are optional.
+  </Step>
+  <Step title="Test the connection">
+    Trigger a test event from your external system and verify the contact appears in Amplifi. Check the contact record to confirm all fields and tags populated correctly.
+  </Step>
+</Steps>
+
+## Inbound SMS replies
+
+Amplifi also receives inbound SMS replies from your contacts via a Twilio webhook. When a contact texts back in response to a campaign or poll, that message routes to your Conversations inbox automatically.
+
+<Note>
+The Twilio inbound message webhook is configured automatically during your Amplifi onboarding when your phone number is set up. You don't need to manage this yourself.
+</Note>
+
+## Outbound webhooks
+
+In addition to receiving data, Amplifi can send event notifications to your systems when things happen—such as when a campaign completes or a contact is created. You can register outbound webhook endpoints in your organization settings, choose which events to subscribe to, and provide an optional secret for payload signing.
+
+<Info>
+Outbound webhook delivery is retried automatically if your endpoint returns an error or doesn't respond in time.
+</Info>
