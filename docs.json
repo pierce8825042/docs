@@ -23,7 +23,8 @@
             "pages": [
               "introduction",
               "quickstart",
-              "organizations"
+              "organizations",
+              "changelog"
             ]
           },
           {
