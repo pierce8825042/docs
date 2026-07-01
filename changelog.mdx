@@ -8,6 +8,26 @@ sidebarTitle: "Changelog"
 
 Product updates for Amplifi customers. Subscribe via the RSS icon above, or ask your admin to enable release notifications.
 
+<Update label="2026-07-01" tags={["Feature","Campaigns"]} description="Admin credit override for campaigns" rss={{ title:"Admin credit override for campaigns",description:"Admins and owners can send or schedule campaigns even when the account is short on credits." }}>
+  ### What changed
+
+  Admins and owners can now send or schedule a campaign when the account does not have enough credits. A warning shows the credits required and the credits available, with an optional field to record a reason for the override.
+
+  ### Why it matters
+
+  Time-sensitive campaigns no longer stall when credits run low. Approved leads can push a send through and reconcile the balance afterward, while regular users are still blocked from overspending by accident.
+
+  ### How to use
+
+  On the campaign compose screen, if the account is short on credits, eligible admins and owners see an override warning with the required and available amounts. Optionally enter a reason, then select **Override and Send** or **Override and Schedule**. Regular users continue to see the standard insufficient-credit block.
+
+  ### Who it affects
+
+  Admins and owners who send or schedule campaigns; regular users see no change.
+
+  {/* changelog-pr:783 */}
+</Update>
+
 <Update label="June 30, 2026" tags={["Feature","Admin"]} description="Edit your profile name and email" rss={{ title:"Edit your profile name and email",description:"Update your first and last name and request an email address change from Settings." }}>
   ### What changed
 
